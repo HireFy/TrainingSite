@@ -84,5 +84,6 @@ course_id(F)
 message_id
 message_content
 message_author_mail
+message_target_id(F)
 message_create_time
 
