@@ -38,7 +38,8 @@ Person:
 p_id
 p_name
 p_age
-p_password(密码当角色为教师时为空)
+p_gender
+p_password(当role为教师时密码为0000)
 p_role_id(F)
 
 
