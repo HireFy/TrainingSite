@@ -4,6 +4,7 @@ course_id
 course_name	
 course_type_id
 price
+course_cover_id 课程封面图
 course_info
 course_teacher_id(F)
 
@@ -78,6 +79,11 @@ teacher_id(F)
 CourseVideo:
 v_id(F)
 course_id(F)
+
+课程-图片:
+CoursePic
+course_id(F)
+pic_id(F)
 
 
 留言表:

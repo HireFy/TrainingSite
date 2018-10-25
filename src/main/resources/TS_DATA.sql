@@ -26,14 +26,17 @@ CREATE TABLE `Course` (
   `course_id` int(11) NOT NULL AUTO_INCREMENT,
   `course_name` varchar(20) NOT NULL,
   `course_type_id` int(11) NOT NULL,
+  `course_cover_id` int(11) DEFAULT NULL COMMENT '课程封面图',
   `price` int(11) DEFAULT NULL,
-  `course_info` varchar(500) DEFAULT NULL,
+  `course_info` varchar(500) DEFAULT NULL COMMENT '课程信息',
   `course_teacher_id` int(11) NOT NULL,
   PRIMARY KEY (`course_id`),
   KEY `course_type_id` (`course_type_id`),
+  KEY `course_cover_id` (`course_cover_id`),
   KEY `course_teacher_id` (`course_teacher_id`),
   CONSTRAINT `Course_ibfk_1` FOREIGN KEY (`course_type_id`) REFERENCES `CourseType` (`course_type_id`),
-  CONSTRAINT `Course_ibfk_2` FOREIGN KEY (`course_teacher_id`) REFERENCES `Person` (`p_id`)
+  CONSTRAINT `Course_ibfk_2` FOREIGN KEY (`course_cover_id`) REFERENCES `Picture` (`pic_id`),
+  CONSTRAINT `Course_ibfk_3` FOREIGN KEY (`course_teacher_id`) REFERENCES `Person` (`p_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -44,6 +47,32 @@ CREATE TABLE `Course` (
 LOCK TABLES `Course` WRITE;
 /*!40000 ALTER TABLE `Course` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `CoursePic`
+--
+
+DROP TABLE IF EXISTS `CoursePic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `CoursePic` (
+  `course_id` int(11) NOT NULL,
+  `pic_id` int(11) NOT NULL,
+  KEY `course_id` (`course_id`),
+  KEY `pic_id` (`pic_id`),
+  CONSTRAINT `CoursePic_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `Course` (`course_id`),
+  CONSTRAINT `CoursePic_ibfk_2` FOREIGN KEY (`pic_id`) REFERENCES `Picture` (`pic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `CoursePic`
+--
+
+LOCK TABLES `CoursePic` WRITE;
+/*!40000 ALTER TABLE `CoursePic` DISABLE KEYS */;
+/*!40000 ALTER TABLE `CoursePic` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -122,6 +151,34 @@ CREATE TABLE `CourseVideo` (
 LOCK TABLES `CourseVideo` WRITE;
 /*!40000 ALTER TABLE `CourseVideo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `CourseVideo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Message`
+--
+
+DROP TABLE IF EXISTS `Message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Message` (
+  `message_id` int(11) NOT NULL,
+  `message_content` text,
+  `message_author_mail_id` varchar(100) NOT NULL,
+  `message_create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `message_target_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`message_id`),
+  KEY `message_target_id` (`message_target_id`),
+  CONSTRAINT `Message_ibfk_1` FOREIGN KEY (`message_target_id`) REFERENCES `Message` (`message_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Message`
+--
+
+LOCK TABLES `Message` WRITE;
+/*!40000 ALTER TABLE `Message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Message` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -218,7 +275,7 @@ CREATE TABLE `Person` (
   `p_name` varchar(20) NOT NULL,
   `p_age` int(11) DEFAULT NULL,
   `p_gender` varchar(10) DEFAULT NULL,
-  `p_password` varchar(100) NOT NULL,
+  `p_password` varchar(100) NOT NULL COMMENT '角色为教师时密码都是0000',
   `p_role_id` int(11) NOT NULL,
   `p_create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `p_info` varchar(500) DEFAULT NULL,
@@ -247,7 +304,10 @@ DROP TABLE IF EXISTS `Picture`;
 CREATE TABLE `Picture` (
   `pic_id` int(11) NOT NULL AUTO_INCREMENT,
   `pic_href` varchar(100) NOT NULL,
-  PRIMARY KEY (`pic_id`)
+  `pic_course_type_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pic_id`),
+  KEY `pic_course_type_id` (`pic_course_type_id`),
+  CONSTRAINT `Picture_ibfk_1` FOREIGN KEY (`pic_course_type_id`) REFERENCES `CourseType` (`course_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -316,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-24 16:52:11
+-- Dump completed on 2018-10-25 15:52:07
