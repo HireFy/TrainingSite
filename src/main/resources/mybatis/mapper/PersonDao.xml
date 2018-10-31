@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.TS.dao.PersonDao">
+    <resultMap id="personResultMap" type="Person">
+        <id property="id" column="p_id"/>
+        <result property="name" column="p_name"/>
+        <result property="age" column="p_age"/>
+        <result property="gender" column="p_gender"/>
+        <result property="password" column="p_password"/>
+        <result property="info" column="p_info"/>
+        <result property="mail" column="p_mail"/>
+        <result property="createTime" column="p_create_time"/>
+        <association property="role" javaType="Role">
+            <id column="r_id" property="id"/>
+            <result column="r_type" property="type"/>
+        </association>
+    </resultMap>
+
+    <select id="getById" resultMap="personResultMap">
+        select Person.*,Role.r_id, Role.r_type
+        from Person,Role
+        where p_id = #{id} and p_role_id = r_id
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into Person (p_name, p_age, p_gender, p_password, p_mail, p_role_id, p_info)
+        values
+        (#{name}, #{age}, #{gender}, #{password}, #{mail}, #{role.id}, #{info})
+    </insert>
+
+    <delete id="deleteById">
+        delete from Person where p_id = #{id}
+    </delete>
+
+    <update id="update">
+        update Person set
+        p_name=#{name},
+        p_age=#{age},
+        p_role_id=#{role.id},
+        p_create_time=#{createTime},
+        p_gender=#{gender},
+        p_info=#{info},
+        p_mail=#{mail},
+        p_password=#{password}
+        where p_id=#{id}
+    </update>
+
+    <select id="getAllPersons" resultMap="personResultMap">
+        select Person.*, Role.* from Person, Role where p_role_id = r_id
+    </select>
+</mapper>

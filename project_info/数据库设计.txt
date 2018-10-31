@@ -42,6 +42,8 @@ p_age
 p_gender
 p_password(当role为教师时密码为0000)
 p_role_id(F)
+p_create_time
+p_info
 
 
 角色
