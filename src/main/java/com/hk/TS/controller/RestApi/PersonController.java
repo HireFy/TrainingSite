@@ -39,4 +39,9 @@ public class PersonController {
     public Person updatePerson(@RequestBody Map<String, Object> map) {
         return personService.update(map);
     }
+
+    @PostMapping("/name/exist")
+    public Boolean isNameExist(@RequestBody String name) {
+        return personService.isNameExist(name);
+    }
 }

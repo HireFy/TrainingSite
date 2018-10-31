@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service("personService")
+/*TODO  Person名字检查重复*/
+@Service
 public class PersonServiceImpl implements PersonService {
 
     @Autowired
@@ -105,7 +107,16 @@ public class PersonServiceImpl implements PersonService {
         if (this.updateById(map)) {
             person = this.getById(Long.valueOf((String) map.get("id")));
         }
-
         return person;
+    }
+
+    /*用户名字重复检查*/
+    public Boolean isNameExist(String name) {
+        List<Person> people = this.getAllPersons();
+        List<String> names = new ArrayList<>();
+        for (Person person : people) {
+            names.add(person.getName());
+        }
+        return names.contains(name);
     }
 }
