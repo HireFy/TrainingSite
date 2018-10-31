@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
 --
 -- Host: localhost    Database: TS_DATA
 -- ------------------------------------------------------
--- Server version	5.7.23-0ubuntu0.18.04.1
+-- Server version	5.7.24-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -275,6 +275,7 @@ CREATE TABLE `Person` (
   `p_name` varchar(20) NOT NULL,
   `p_age` int(11) DEFAULT NULL,
   `p_gender` varchar(10) DEFAULT NULL,
+  `p_mail` varchar(20) DEFAULT NULL,
   `p_password` varchar(100) NOT NULL COMMENT '角色为教师时密码都是0000',
   `p_role_id` int(11) NOT NULL,
   `p_create_time` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -282,7 +283,7 @@ CREATE TABLE `Person` (
   PRIMARY KEY (`p_id`),
   KEY `p_role_id` (`p_role_id`),
   CONSTRAINT `Person_ibfk_1` FOREIGN KEY (`p_role_id`) REFERENCES `Role` (`r_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,6 +292,7 @@ CREATE TABLE `Person` (
 
 LOCK TABLES `Person` WRITE;
 /*!40000 ALTER TABLE `Person` DISABLE KEYS */;
+INSERT INTO `Person` VALUES (2,'fjw',12,'male','2824908821@qq.com','1212313',2,'2018-10-31 17:39:30','hit the send button to get a response.');
 /*!40000 ALTER TABLE `Person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,4 +378,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 15:52:07
+-- Dump completed on 2018-10-31 19:50:20
