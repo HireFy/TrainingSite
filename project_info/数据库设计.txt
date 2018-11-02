@@ -49,7 +49,7 @@ p_info
 角色
 Role:
 r_id
-r_type(超级管理员，信息管理员,教师)
+r_type(超级管理员，信息管理员,教师,普通(normal))
 
 
 图片

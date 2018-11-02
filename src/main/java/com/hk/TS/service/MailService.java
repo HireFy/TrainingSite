@@ -32,13 +32,8 @@ public class MailService {
         return serverNumber > 0;
     }
 
-    /*检查邮箱是否存在*/
     public Boolean isMailExist(String mail) {
-        List<Person> people = personService.getAllPersons();
-        List<String> mails = new ArrayList<>();
-        for (Person person : people) {
-            mails.add(person.getMail());
-        }
-        return mails.contains(mail);
+        return personService.isMailExist(mail);
     }
+
 }

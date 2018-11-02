@@ -15,15 +15,22 @@ public class MailController {
     @Autowired
     private MailService mailService;
 
-    /*TODO 检测邮箱是否存在*/
+    /*检测邮箱是否存在*/
+    @PostMapping("/exist")
+    public Boolean isMailExist(@RequestBody String mail) {
+        System.out.println("服务端收到的邮箱 " + mail);
+        return mailService.isMailExist(mail);
+    }
+
     /*发送验证码*/
-    @PostMapping("/verify")
+    @PostMapping("/num")
     public Boolean getVerifyNumber(@RequestBody String toMail, HttpSession session) throws MessagingException {
         return mailService.sendVerifyNum(toMail, session);
     }
 
-    @PostMapping("/verify/{num}")
-    public Boolean verifyNum(@PathVariable Integer num, HttpSession session) {
+    /*检测前端发送的验证码是否正确*/
+    @PostMapping("/verify")
+    public Boolean verifyNum(@RequestBody Integer num, HttpSession session) {
         Integer serverNum = (Integer) session.getAttribute("serverMailNum");
         return serverNum.equals(num);
     }

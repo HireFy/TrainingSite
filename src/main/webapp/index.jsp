@@ -65,7 +65,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="#"><i class="fa fa-phone"></i> + 100 86</a></li>
+                         <li><a href="/login"><i class="fa fa-phone"></i>登录</a></li>
                     </ul>
                </div>
 

@@ -13,8 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/*TODO  Person名字检查重复*/
-@Service
+@Service("personService")
 public class PersonServiceImpl implements PersonService {
 
     @Autowired
@@ -27,6 +26,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Boolean insert(Person person) {
+        /*如果person的role没有，默认为4，normal角色*/
+        if (person.getRole().getId() == null) {
+            person.setRole(new Role((long) 4));
+        }
         return personDao.insert(person);
     }
 
@@ -118,5 +121,30 @@ public class PersonServiceImpl implements PersonService {
             names.add(person.getName());
         }
         return names.contains(name);
+    }
+
+    /*用户邮箱去重*/
+    public Boolean isMailExist(String mail) {
+        List<Person> people = this.getAllPersons();
+        List<String> mails = new ArrayList<>();
+        for (Person person : people) {
+            mails.add(person.getMail());
+        }
+        return mails.contains(mail);
+    }
+
+    /*根据名字获取用户*/
+    public Person getByMail(String mail) {
+        return personDao.getByMail(mail);
+    }
+
+    /*TODO 注意邮箱重复，在注册的时候检查邮箱是否重复，修改邮箱信息的时候邮箱去重*/
+    /*用户邮箱密码验证*/
+    public Boolean isPasswordRight(Map<String,Object> idAndPass) {
+        Person person = this.getByMail((String) idAndPass.get("mail"));
+        if (person.getPassword().equals(idAndPass.get("password"))) {
+            return true;
+        }
+        return false;
     }
 }

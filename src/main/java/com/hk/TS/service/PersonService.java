@@ -14,5 +14,7 @@ public interface PersonService {
 
     Boolean updateById(Map<String, Object> maps);
 
+    Person getByMail(String mail);
+
     List<Person> getAllPersons();
 }
