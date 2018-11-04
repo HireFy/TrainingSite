@@ -29,6 +29,10 @@ public class MailService {
         MailUtil mailUtil = new MailUtil();
         Integer serverNumber = Integer.valueOf(mailUtil.getAndSendVerifyNumber(toMail));
         session.setAttribute("serverMailNum", serverNumber);
+
+        /*测试用*/
+        System.out.println("验证码： " + serverNumber);
+
         return serverNumber > 0;
     }
 

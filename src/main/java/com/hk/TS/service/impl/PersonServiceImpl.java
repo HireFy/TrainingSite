@@ -133,7 +133,7 @@ public class PersonServiceImpl implements PersonService {
         return mails.contains(mail);
     }
 
-    /*根据名字获取用户*/
+    /*根据邮箱获取用户*/
     public Person getByMail(String mail) {
         return personDao.getByMail(mail);
     }

@@ -1,12 +1,21 @@
+/*TODO 检查每个框的值，有任意一个不ok就disabled*/
+
 username = $("#username")
 pass = $("#password")
 repass = $("#repassword")
 mail = $("#email")
 verify_num = $("#emailNum")
+
 username_info = $("span[name='username_info']")
+pass_info = $("span[name='pass_info']")
+repass_info = $("span[name='repass_info']")
+email_info = $("span[name='email_info']")
 
 verify_button = $("[name='getVerifyNum']")
 submit_button = $("[name='submit']")
+
+register_form = $("#register_form")
+
 
 
 /*点击发送验证码按钮*/
@@ -21,13 +30,6 @@ verify_button.click(function () {
     if (!checkFormRight()) {
         return
     }
-
-    /*关闭邮箱检查存在以便测试*/
-    if (isMailExist()) {
-        alert("邮箱已存在")
-        return
-    }
-
     sendVerifyNum()
 })
 
@@ -40,6 +42,12 @@ verify_button.click(function () {
 * 之后页面有个总的判断，判断username到底改没有改，
 * 没有改设置确认按钮为不可点击*/
 submit_button.click(function () {
+    username_val = username.val()
+    pass_val = pass.val()
+    repass_val = repass.val()
+    mail_val = mail.val()
+    verify_num_val = verify_num.val()
+
     if (!checkFormRight()) {
         return
     }
@@ -67,30 +75,90 @@ submit_button.click(function () {
 username.blur(function () {
     username_val = username.val()
     if (username_val == "") {
+        username_info.text("用户昵称不能为空")
+        verify_button.attr("disabled", true)
+        submit_button.attr("disabled", true)
         return
     }
+    username_info.text("")
+    verify_button.attr("disabled", false)
+    submit_button.attr("disabled", false)
     isNameExist();
 })
 
+/*密码*/
+pass.blur(function () {
+    if (pass.val() == "") {
+        pass_info.text("密码不能为空")
+        return
+    }
+    pass_info.text("")
+})
+repass.blur(function () {
+    // if (pass.val() == "") {
+    //     repass_info.text("请先输入密码")
+    //     repass.attr("readOnly", true)
+    //     return
+    // }else{
+    //     repass.attr("readOnly", false)
+    // }
+    // if (repass.val() == "") {
+    //     repass_info.text("请再次输入密码");
+    //     return;
+    // }
+    if(repass.val() != pass.val()){
+        repass_info.text("密码不一致")
+        return
+    }
+    repass_info.text("")
+})
 
-/*检测邮箱是否存在*/
+
+/*检测邮箱合法*/
+mail.blur(function () {
+    flag = isEmail(mail.val())
+    console.log(flag)
+    if(!flag){
+        email_info.text("邮箱格式有误")
+        verify_button.attr("disabled", true)
+        submit_button.attr("disabled", true)
+        return
+    }else {
+        email_info.text("")
+        verify_button.attr("disabled", false)
+        submit_button.attr("disabled", false)
+    }
+/*todo 方便测试*/
+    // isMailExist()
+})
+
+/*邮箱中包含得有特殊字符@，所以这里还是要使用@ResponseBody
+* 来转成字符串*/
 function isMailExist() {
     $.ajax({
         type: "post",
         url: "/mail/exist",
-        contentType: "application/json",
-        data: JSON.stringify(mail),
+        data:{
+            "mail":mail.val()
+        },
         dataType: "json",
         error: function (error) {
             console.log(error)
         },
         success: function (data) {
-            console.log("success " + data)
-            return data
+            if(data){
+                if(email_info.val() == "") {
+                    email_info.text("邮箱已存在")
+                    verify_button.attr("disabled", true)
+                }
+            }
+            else {
+                email_info.text("")
+                verify_button.attr("disabled", false)
+            }
         }
     })
 }
-
 
 /*检查表单*/
 function checkFormRight() {
@@ -143,17 +211,16 @@ function isNameExist() {
                 if (username_info.val() == "") {
                     username_info.text("昵称已存在")
                 }
-                submit_button.attr('disabled', true)
             }else{
                 /*名字不存在， submit button attr['disabled',false]*/
                 username_info.text("")
-                submit_button.attr('disabled', false)
             }
         }
     })
 }
 
 
+/*TODO 验证码设置生命周期，一定时间后失效，当*/
 /*发送验证码*/
 function sendVerifyNum() {
     $.ajax({
@@ -198,6 +265,7 @@ function isVerifyNumRight(num, successFunc, failFunc) {
 
 
 /*发送请求*/
+/*如果成功创建了就提交表单跳转到用户个人信息页*/
 function sendRequest() {
     $.ajax({
         type: "post",
@@ -218,10 +286,13 @@ function sendRequest() {
         },
         success:function (data) {
             if(data){
-                window.location.href="/index"
+                console.log("跳转表单")
+                /*跳转表单*/
+                register_form.submit()
             }else{
                 alert("something wrong!!!")
             }
         }
     })
 }
+

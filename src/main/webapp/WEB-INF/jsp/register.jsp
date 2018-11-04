@@ -35,39 +35,40 @@
             <div class="form-horizontal col-md-offset-3" id="login_form">
                 <h3 class="form-title">REGISTER</h3>
                 <div class="col-md-9">
+                    <form id="register_form" action="/user" method="post">
                     <div class="form-group">
                         <i class="fa fa-user fa-lg"></i>
-                        <input class="form-control required" type="text" placeholder="Username" id="username" name="username"/>
+                        <input class="form-control required" type="text" placeholder="Username" id="username" name="username" autofocus="autofocus"/>
                         <span name="username_info" style="color: #FF4136"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="Password" id="password" name="password"/>
+                        <span name="pass_info" style="color: #FF4136"></span>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-lock fa-lg"></i>
                         <input class="form-control required" type="password" placeholder="Repassword" id="repassword" name="repassword" />
+                        <span name="repass_info" style="color: #FF4136"></span>
                     </div>
                     <div class="form-group">
                         <i class="glyphicon glyphicon-envelope"></i>
                         <input class="form-control required" type="text" placeholder="Email" id="email" style="width: 400px" name="email"/>
+                        <span name="email_info" style="color: #FF4136"></span>
                         <input class="form-control required" type="text" placeholder="verify number" id="emailNum" style="width: 400px" name="emailNum"/>
-                        <button class="btn btn-success pull-right" name="getVerifyNum" style="margin: -35px;margin-right: 10px;width: 200px;">
+                        <button type="button" class="btn btn-success pull-right" name="getVerifyNum" style="margin: -35px;margin-right: 10px;width: 200px;">
                             获取验证码
                         </button>
                     </div>
-                    <%--<div class="form-group">
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember" value="1"/>同意服务条款
-                        </label>
-                    </div>--%>
+                    </form>
                     <div class="form-group col-md-offset-9">
-                        <a href="#"><button type="submit" class="btn btn-success pull-right" name="submit">确认</button></a>
+                        <a href="#"><button type="button" class="btn btn-success pull-right" name="submit">确认</button></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script src="/js/common.js"></script>
 <script src="/js/register.js"></script>
 </html>
