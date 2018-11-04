@@ -40,8 +40,16 @@ public class PersonController {
         return personService.update(map);
     }
 
+    /*因为前端ajax传递Name值为007在服务端会是""007""这样的情况，所以把原来的参数改成Map*/
+//    @RequestBody Map<String, Object> name
     @PostMapping("/name/exist")
-    public Boolean isNameExist(@RequestBody String name) {
-        return personService.isNameExist(name);
+    public Boolean isNameExist(@RequestParam String name) {
+//        return personService.isNameExist((String) map.get("name"));
+        return personService.isNameExist((String) name);
+    }
+
+    @PostMapping("/password/verify")
+    public Boolean isPassRight(@RequestBody Map<String, Object> mailAndPass) {
+        return personService.isPasswordRight(mailAndPass);
     }
 }
