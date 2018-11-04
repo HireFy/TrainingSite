@@ -12,6 +12,7 @@
         <h1>
             hello,${sessionScope.name}
         </h1>
+        <a href="/modify">修改信息</a>
     </div>
 </body>
 </html>

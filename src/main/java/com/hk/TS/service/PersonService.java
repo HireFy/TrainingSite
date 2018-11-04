@@ -12,7 +12,7 @@ public interface PersonService {
 
     Boolean deleteById(Long id);
 
-    Boolean updateById(Map<String, Object> maps);
+    Boolean update(Person person,Map<String, Object> maps);
 
     Person getByMail(String mail);
 

@@ -83,7 +83,7 @@ username.blur(function () {
     username_info.text("")
     verify_button.attr("disabled", false)
     submit_button.attr("disabled", false)
-    isNameExist();
+    isNameExist(username_val, username_info);
 })
 
 /*密码*/
@@ -128,8 +128,7 @@ mail.blur(function () {
         verify_button.attr("disabled", false)
         submit_button.attr("disabled", false)
     }
-/*todo 方便测试*/
-    // isMailExist()
+     isMailExist()
 })
 
 /*邮箱中包含得有特殊字符@，所以这里还是要使用@ResponseBody
@@ -187,37 +186,7 @@ function checkFormRight() {
 }
 
 
-/*TODO 写一篇博客记录@RequestParam和@RequestBody和dataType, contentType*/
-/*检测名字是否重复*/
-/*TODO 名字传输应该简单的传递字符串值，而不是一个json
-* 这里传递到服务器的是一个json键值对，不这样的话，
-* 加入name的值是007，单纯传递字符在服务器
-* 接收到的是这样的:""007""
-* 而在isMailExist()中，也是单纯的传递字符串，服务器却能正常接收*/
-function isNameExist() {
-    $.ajax({
-        type: "post",
-        url: "/person/name/exist",
-        dataType: "json",
-        data:{
-            "name":username_val
-        },
-        error: function (error) {
-            console.log(error)
-        },
-        success: function (data) {
-            if (data) {
-                /*如果名字存在， submit button attr['disabled',true]*/
-                if (username_info.val() == "") {
-                    username_info.text("昵称已存在")
-                }
-            }else{
-                /*名字不存在， submit button attr['disabled',false]*/
-                username_info.text("")
-            }
-        }
-    })
-}
+
 
 
 /*TODO 验证码设置生命周期，一定时间后失效，当*/
