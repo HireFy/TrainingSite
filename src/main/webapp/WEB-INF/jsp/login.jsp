@@ -48,7 +48,7 @@
                                name="password" maxlength="8"/>
                     </div>
                     <div class="form-group">
-                        <a href="#">忘记密码</a>
+                        <a href="/forget">忘记密码</a>
                     </div>
                     <%--<div class="form-group col-md-offset-9">
                         <a href="#"><button type="submit" class="btn btn-success pull-right" name="submit">登录</button></a>
@@ -68,6 +68,6 @@
     </div>
 </div>
 </body>
-<script src="/js/common.js"></script>
-<script src="/js/login.js"></script>
+<script src="/js/service/common.js"></script>
+<script src="/js/service/login.js"></script>
 </html>

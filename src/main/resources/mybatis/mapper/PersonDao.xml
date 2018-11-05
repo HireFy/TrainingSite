@@ -53,4 +53,8 @@
     <select id="getByMail" resultMap="personResultMap">
         select Person.*, Role.* from Person,Role where p_mail = #{mail} and p_role_id = r_id
     </select>
+
+    <select id="getByName" resultMap="personResultMap">
+        select Person.*, Role.* from Person,Role where p_name = #{name} and p_role_id = r_id
+    </select>
 </mapper>
