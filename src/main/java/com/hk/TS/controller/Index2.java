@@ -8,15 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class Index {
+public class Index2 {
     private static Logger logger = LogManager.getLogger(Index.class);
 
-    @RequestMapping("/some")
+    @RequestMapping("/create")
     public ModelAndView index() {
 //        logger.info("servlet已经找到");
         ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("modify_information");
+        modelAndView.setViewName("register");
         return modelAndView;
+
     }
 }
