@@ -15,5 +15,7 @@ public interface PersonDao {
 
     Boolean update(Person person);
 
+    Person getByMail(String mail);
+
     List<Person> getAllPersons();
 }

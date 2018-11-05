@@ -29,16 +29,15 @@ public class MailService {
         MailUtil mailUtil = new MailUtil();
         Integer serverNumber = Integer.valueOf(mailUtil.getAndSendVerifyNumber(toMail));
         session.setAttribute("serverMailNum", serverNumber);
+
+        /*测试用*/
+        System.out.println("验证码： " + serverNumber);
+
         return serverNumber > 0;
     }
 
-    /*检查邮箱是否存在*/
     public Boolean isMailExist(String mail) {
-        List<Person> people = personService.getAllPersons();
-        List<String> mails = new ArrayList<>();
-        for (Person person : people) {
-            mails.add(person.getMail());
-        }
-        return mails.contains(mail);
+        return personService.isMailExist(mail);
     }
+
 }
