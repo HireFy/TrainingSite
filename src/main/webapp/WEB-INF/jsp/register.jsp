@@ -69,6 +69,6 @@
         </div>
     </div>
 </body>
-<script src="/js/common.js"></script>
-<script src="/js/register.js"></script>
+<script src="/js/service/common.js"></script>
+<script src="/js/service/register.js"></script>
 </html>
