@@ -153,10 +153,19 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /*TODO 注意邮箱重复，修改邮箱信息的时候邮箱去重*/
+    /*TODO 管理员页面要分开，一个是超级管理员，一个是信息管理员*/
     /*用户邮箱密码验证*/
     /*如果密码正确，设置session的name属性的值*/
+    /*当用户的role id为1或2时设置session
+    * */
     public Boolean isPasswordRight(Map<String, Object> idAndPass, HttpSession session) {
         Person person = this.getByMail((String) idAndPass.get("mail"));
+        Long roleid = person.getRole().getId();
+        if (roleid == 1) {
+            session.setAttribute("roleid", roleid);
+        } else if (roleid == 2) {
+            session.setAttribute("roleid", roleid);
+        }
         if (person.getPassword().equals(idAndPass.get("password"))) {
             session.setAttribute("name", person.getName());
             return true;

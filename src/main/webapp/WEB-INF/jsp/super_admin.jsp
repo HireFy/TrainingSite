@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()
+            +":"+request.getServerPort()+path+"/";
+%>
 <html lang="en">
 <head>
     <title>Super Administrator</title>
@@ -133,10 +139,10 @@
                 <li>
                     <a href="index.html"><i class="icon-chevron-right"></i> 首&nbsp&nbsp&nbsp&nbsp页</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="#"><i class="icon-chevron-right"></i> 新&nbsp;闻&nbsp;管&nbsp;理</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#"><i class="icon-chevron-right"></i> 用&nbsp;户&nbsp;管&nbsp;理</a>
                 </li>
                 <li>
@@ -190,96 +196,18 @@
                         <tr>
                             <th>id</th>
                             <th>昵称</th>
-                            <th>内容</th>
-                            <th>作者</th>
-                            <th>发布时间</th>
-                            <th>评论</th>
-                            <th>管理</th>
+                            <th>年龄</th>
+                            <th>性别</th>
+                            <th>邮箱</th>
+                            <th>密码</th>
+                            <th>角色</th>
+                            <th>创建时间</th>
+                            <th>个人介绍</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>001</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div style="float: left">
-                                    <button id="news_modification" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mymodal" >修改</button>
-                                    <!-- 模态框（Modal） -->
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                        &times;
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel">
-                                                        模态框（Modal）标题
-                                                    </h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    在这里添加一些文本
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary">
-                                                        提交更改
-                                                    </button>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal -->
-                                    </div>
 
-
-                                    <button id="news_delete">删除</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div style="float: left">
-                                    <button>修改</button>
-                                    <button>删除</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div style="float: left">
-                                    <button>修改</button>
-                                    <button>删除</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>004</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div style="float: left">
-                                    <button>修改</button>
-                                    <button>删除</button>
-                                </div>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
