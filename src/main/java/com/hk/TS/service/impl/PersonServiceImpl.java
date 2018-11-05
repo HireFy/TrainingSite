@@ -6,8 +6,8 @@ import com.hk.TS.pojo.Role;
 import com.hk.TS.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.print.attribute.IntegerSyntax;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -42,12 +42,7 @@ public class PersonServiceImpl implements PersonService {
 
     /*按照所传参数指定的属性更新*/
     @Override
-    public Boolean updateById(Map<String, Object> maps) {
-        Long id = Long.valueOf((String) maps.get("id"));
-
-        /*找到指定id的person*/
-        Person person = personDao.getById(id);
-
+    public Boolean update(Person person, Map<String, Object> maps) {
         for (Map.Entry entry : maps.entrySet()) {
             switch ((String) entry.getKey()) {
                 case "name": {
@@ -56,8 +51,12 @@ public class PersonServiceImpl implements PersonService {
                 }
 //                修改age数据类型
                 case "age": {
-                    person.setAge(Integer.valueOf((String)entry.getValue()));
-                    break;
+                    try {
+                        person.setAge(Integer.valueOf((String) entry.getValue()));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        break;
+                    }
                 }
                 case "gender": {
                     person.setGender((String) entry.getValue());
@@ -67,7 +66,7 @@ public class PersonServiceImpl implements PersonService {
                     person.setPassword((String) entry.getValue());
                     break;
                 }
-                case "mail":{
+                case "mail": {
                     person.setMail((String) entry.getValue());
                     break;
                 }
@@ -98,22 +97,36 @@ public class PersonServiceImpl implements PersonService {
 
     /*创建用户*/
     /*todo: 前台传输的数据报错的异常检测，insert操作异常的捕获处理*/
-    public Person create(Person person) {
+    public Person create(Person person, HttpSession session) {
         Person person1 = new Person();
 
         if (this.insert(person)) {
-            return person1 = this.getById(person.getId());
+            person1 = this.getById(person.getId());
+            session.setAttribute("name", person1.getName());
+            return person1;
         }
         return person1;
     }
 
     /*更新用户*/
-    public Person update(Map<String, Object> map) {
+    public Boolean updateWithSession(Map<String, Object> map, HttpSession session) {
         Person person = new Person();
-        if (this.updateById(map)) {
-            person = this.getById(Long.valueOf((String) map.get("id")));
-        }
-        return person;
+        Boolean flag = false;
+        String name = (String) session.getAttribute("name");
+        /*如果session中name为空
+         * 就代表这请求是从忘记密码那来的
+         * 就获取session中的邮箱*/
+        if (name == null) {
+            String mail = (String) session.getAttribute("mail");
+            person = this.getByMail(mail);
+        } else
+            person = this.getByName(name);
+
+        if (this.update(person, map))
+            flag = true;
+
+        session.setAttribute("name", person.getName());
+        return flag;
     }
 
     /*用户名字重复检查*/
@@ -137,18 +150,25 @@ public class PersonServiceImpl implements PersonService {
         return mails.contains(mail);
     }
 
-    /*根据名字获取用户*/
+    /*根据邮箱获取用户*/
     public Person getByMail(String mail) {
         return personDao.getByMail(mail);
     }
 
-    /*TODO 注意邮箱重复，在注册的时候检查邮箱是否重复，修改邮箱信息的时候邮箱去重*/
+    /*TODO 注意邮箱重复，修改邮箱信息的时候邮箱去重*/
     /*用户邮箱密码验证*/
-    public Boolean isPasswordRight(Map<String,Object> idAndPass) {
+    /*如果密码正确，设置session的name属性的值*/
+    public Boolean isPasswordRight(Map<String, Object> idAndPass, HttpSession session) {
         Person person = this.getByMail((String) idAndPass.get("mail"));
         if (person.getPassword().equals(idAndPass.get("password"))) {
+            session.setAttribute("name", person.getName());
             return true;
         }
         return false;
+    }
+
+    /*根据名称获取用户*/
+    public Person getByName(String name) {
+        return personDao.getByName(name);
     }
 }

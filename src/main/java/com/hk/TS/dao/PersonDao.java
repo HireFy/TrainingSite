@@ -17,5 +17,7 @@ public interface PersonDao {
 
     Person getByMail(String mail);
 
+    Person getByName(String name);
+
     List<Person> getAllPersons();
 }
