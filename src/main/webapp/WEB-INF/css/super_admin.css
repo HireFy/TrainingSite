@@ -1,0 +1,16 @@
+.myModalCss{
+    background-color:#f5f5f5 ;
+    width: 300px;
+    height: 100px;
+    margin: auto;
+    position: absolute ;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+}
+.table_td{
+    overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+
+
