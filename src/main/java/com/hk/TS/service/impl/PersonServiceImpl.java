@@ -6,7 +6,7 @@ import com.hk.TS.pojo.Role;
 import com.hk.TS.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import javax.print.attribute.IntegerSyntax;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/*TODO  Person名字检查重复*/
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
 
@@ -48,6 +49,7 @@ public class PersonServiceImpl implements PersonService {
                     person.setName((String) entry.getValue());
                     break;
                 }
+//                修改age数据类型
                 case "age": {
                     try {
                         person.setAge(Integer.valueOf((String) entry.getValue()));
@@ -136,6 +138,7 @@ public class PersonServiceImpl implements PersonService {
         }
         return names.contains(name);
     }
+
 
     /*用户邮箱去重*/
     public Boolean isMailExist(String mail) {
