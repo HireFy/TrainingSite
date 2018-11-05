@@ -17,6 +17,13 @@ submit_button = $("[name='submit']")
 register_form = $("#register_form")
 
 
+/*密码*/
+pass.blur(function () {
+    checkPass(pass.val(), pass_info)
+})
+repass.blur(function () {
+    checkRepass(repass.val(), pass.val(), repass_info)
+})
 
 /*点击发送验证码按钮*/
 /*TODO 发送验证码的时候前端显示一个正在处理的UI，提示超时UI*/
@@ -30,7 +37,7 @@ verify_button.click(function () {
     if (!checkFormRight()) {
         return
     }
-    sendVerifyNum()
+    sendVerifyNum(mail_val)
 })
 
 
@@ -86,78 +93,51 @@ username.blur(function () {
     isNameExist(username_val, username_info);
 })
 
-/*密码*/
-pass.blur(function () {
-    if (pass.val() == "") {
-        pass_info.text("密码不能为空")
-        return
-    }
-    pass_info.text("")
-})
-repass.blur(function () {
-    // if (pass.val() == "") {
-    //     repass_info.text("请先输入密码")
-    //     repass.attr("readOnly", true)
-    //     return
-    // }else{
-    //     repass.attr("readOnly", false)
-    // }
-    // if (repass.val() == "") {
-    //     repass_info.text("请再次输入密码");
-    //     return;
-    // }
-    if(repass.val() != pass.val()){
-        repass_info.text("密码不一致")
-        return
-    }
-    repass_info.text("")
-})
-
 
 /*检测邮箱合法*/
 mail.blur(function () {
     flag = isEmail(mail.val())
     console.log(flag)
-    if(!flag){
+    if (!flag) {
         email_info.text("邮箱格式有误")
         verify_button.attr("disabled", true)
         submit_button.attr("disabled", true)
         return
-    }else {
+    } else {
         email_info.text("")
         verify_button.attr("disabled", false)
         submit_button.attr("disabled", false)
     }
-     isMailExist()
+    isMailExist(mail.val(), email_info, verify_button)
 })
 
 /*邮箱中包含得有特殊字符@，所以这里还是要使用@ResponseBody
 * 来转成字符串*/
-function isMailExist() {
-    $.ajax({
-        type: "post",
-        url: "/mail/exist",
-        data:{
-            "mail":mail.val()
-        },
-        dataType: "json",
-        error: function (error) {
-            console.log(error)
-        },
-        success: function (data) {
-            if(data){
-                if(email_info.val() == "") {
-                    email_info.text("邮箱已存在")
-                    verify_button.attr("disabled", true)
-                }
-            }
-            else {
-                email_info.text("")
-                verify_button.attr("disabled", false)
-            }
-        }
-    })
-}
+// function isMailExist(mail_input, mail_box, button) {
+//     $.ajax({
+//         type: "post",
+//         url: "/mail/exist",
+//         data:{
+//             "mail":mail.val()
+//         },
+//         dataType: "json",
+//         error: function (error) {
+//             console.log(error)
+//         },
+//         success: function (data) {
+//             if(data){
+//                 if(email_info.val() == "") {
+//                     email_info.text("邮箱已存在")
+//                     verify_button.attr("disabled", true)
+//                 }
+//             }
+//             else {
+//                 email_info.text("")
+//                 verify_button.attr("disabled", false)
+//             }
+//         }
+//     })
+// }
 
 /*检查表单*/
 function checkFormRight() {
@@ -186,54 +166,8 @@ function checkFormRight() {
 }
 
 
-
-
-
-/*TODO 验证码设置生命周期，一定时间后失效，当*/
-/*发送验证码*/
-function sendVerifyNum() {
-    $.ajax({
-        type: "post",
-        url: "/mail/num",
-        contentType: "application/json",
-        data: JSON.stringify(mail_val),
-        dataType: "json",
-        error: function (error) {
-            console.log(error)
-        },
-        success: function (data) {
-            if (data) {
-                alert("验证码已发送！")
-            }
-        }
-    })
-}
-
-
-/*检测验证码是否正确*/
-function isVerifyNumRight(num, successFunc, failFunc) {
-    $.ajax({
-        type:"post",
-        url:"/mail/verify",
-        contentType:"application/json",
-        dataType:"json",
-        data:JSON.stringify(num),
-        error:function (error) {
-            console.log(error)
-        },
-        success:function (data) {
-            console.log("isVerifyNumRight data: " + data);
-            if(data) {
-                successFunc()
-            } else {
-                failFunc()
-            }
-        }
-    })
-}
-
-
 /*发送请求*/
+
 /*如果成功创建了就提交表单跳转到用户个人信息页*/
 function sendRequest() {
     $.ajax({
@@ -241,24 +175,24 @@ function sendRequest() {
         url: "/person/create",
         contentType: "application/json",
         dataType: "json",
-        data:JSON.stringify({
-            "name":username_val,
-            "age":"",
-            "mail":mail_val,
-            "gender":"",
-            "password":pass_val,
-            "role":{},
-            "info":""
+        data: JSON.stringify({
+            "name": username_val,
+            "age": "",
+            "mail": mail_val,
+            "gender": "",
+            "password": pass_val,
+            "role": {},
+            "info": ""
         }),
-        error:function (error) {
+        error: function (error) {
             console.log(error)
         },
-        success:function (data) {
-            if(data){
+        success: function (data) {
+            if (data) {
                 console.log("跳转表单")
                 /*跳转表单*/
                 register_form.submit()
-            }else{
+            } else {
                 alert("something wrong!!!")
             }
         }

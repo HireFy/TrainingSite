@@ -64,7 +64,7 @@ public class PersonServiceImpl implements PersonService {
                     person.setPassword((String) entry.getValue());
                     break;
                 }
-                case "mail":{
+                case "mail": {
                     person.setMail((String) entry.getValue());
                     break;
                 }
@@ -95,11 +95,13 @@ public class PersonServiceImpl implements PersonService {
 
     /*创建用户*/
     /*todo: 前台传输的数据报错的异常检测，insert操作异常的捕获处理*/
-    public Person create(Person person) {
+    public Person create(Person person, HttpSession session) {
         Person person1 = new Person();
 
         if (this.insert(person)) {
-            return person1 = this.getById(person.getId());
+            person1 = this.getById(person.getId());
+            session.setAttribute("name", person1.getName());
+            return person1;
         }
         return person1;
     }
@@ -109,8 +111,16 @@ public class PersonServiceImpl implements PersonService {
         Person person = new Person();
         Boolean flag = false;
         String name = (String) session.getAttribute("name");
-        person = this.getByName(name);
-        if(this.update(person, map))
+        /*如果session中name为空
+         * 就代表这请求是从忘记密码那来的
+         * 就获取session中的邮箱*/
+        if (name == null) {
+            String mail = (String) session.getAttribute("mail");
+            person = this.getByMail(mail);
+        } else
+            person = this.getByName(name);
+
+        if (this.update(person, map))
             flag = true;
 
         session.setAttribute("name", person.getName());
@@ -142,10 +152,10 @@ public class PersonServiceImpl implements PersonService {
         return personDao.getByMail(mail);
     }
 
-    /*TODO 注意邮箱重复，在注册的时候检查邮箱是否重复，修改邮箱信息的时候邮箱去重*/
+    /*TODO 注意邮箱重复，修改邮箱信息的时候邮箱去重*/
     /*用户邮箱密码验证*/
     /*如果密码正确，设置session的name属性的值*/
-    public Boolean isPasswordRight(Map<String,Object> idAndPass, HttpSession session) {
+    public Boolean isPasswordRight(Map<String, Object> idAndPass, HttpSession session) {
         Person person = this.getByMail((String) idAndPass.get("mail"));
         if (person.getPassword().equals(idAndPass.get("password"))) {
             session.setAttribute("name", person.getName());

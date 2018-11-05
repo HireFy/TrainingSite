@@ -17,8 +17,8 @@ public class PersonController {
     private PersonServiceImpl personService;
 
     @PostMapping("/create")
-    public Person create(@RequestBody Person person) {
-        return personService.create(person);
+    public Person create(@RequestBody Person person, HttpSession session) {
+        return personService.create(person, session);
     }
 
     @GetMapping("/{id}")

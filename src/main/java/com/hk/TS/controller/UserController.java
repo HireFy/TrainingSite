@@ -36,15 +36,19 @@ public class UserController {
         return "user";
     }
 
-//    /*通过session中的属性name返回user视图*/
-//    @PostMapping("/user/session")
-//    public String getUserPageBySessionName(HttpSession session) {
-//        return "user";
-//    }
-
     /*请求信息修改页面*/
     @GetMapping("/modify")
     public String getModifyPage() {
         return "modify";
+    }
+
+    @RequestMapping("/forget")
+    public String forget() {
+        return "forgetpass";
+    }
+
+    @RequestMapping("/updatePass")
+    public String updatePass() {
+        return "updatePass";
     }
 }

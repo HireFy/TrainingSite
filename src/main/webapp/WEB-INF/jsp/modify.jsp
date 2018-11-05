@@ -42,6 +42,7 @@
             <h3 class="form-title">信息修改</h3>
             <%--<form action="/modifyuser" method="post" id="modify_form">--%>
                 <div class="form-group">
+                    <%--TODO 修改成中文会乱码--%>
                     <span>用户名：<u><input class="form-control required" type="text" placeholder="Username" id="username"
                                         name="username" autofocus="autofocus" maxlength="20"/></u></span>
                     <span name="name_info" style="color: #FF4136"></span>
@@ -73,7 +74,6 @@
             <div class="form-group">
                 <input name="btn" type="button" class="btn btn-success pull-left" value="确认修改">
             </div>
-            <a href="/user">回到个人信息</a>
         </div>
 
 
@@ -81,6 +81,6 @@
 </div>
 </body>
 <script src="/js/jquery.js"></script>
-<script src="/js/common.js"></script>
-<script src="/js/update.js"></script>
+<script src="/js/service/common.js"></script>
+<script src="/js/service/update.js"></script>
 </html>

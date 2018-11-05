@@ -1,4 +1,3 @@
-<%--TODO login显示当前登录的用户名--%>
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html lang="en">

@@ -31,7 +31,7 @@ btn.click(function () {
             console.log(error)
         },
         success:function (data) {
-            alert("修改成功")
+            window.location.href="/user"
         }
     });
 })
