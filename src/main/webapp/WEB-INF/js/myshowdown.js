@@ -7,16 +7,33 @@ showdown.setOption('parseImgDimensions', 'true')
 showdown.setOption('emoji', 'true')
 /*设置github Flavor*/
 showdown.setFlavor('github')
-var converter = new showdown.Converter();
-let text = '# this _is_ `hhhhh`' +
-    '图片: ![pic](WEB-INF/images/author-image3.jpg =200x*)'
-let html = converter.makeHtml(text);
-$("div").append(html);
 
-f()
+showdown.setOption('tasklists', true)
 
-function f() {
-    $("button").click(function () {
-        alert($("h1").text())
+
+btn = $("input[type='submit']")
+textarea = $("textarea")
+text_form = $("#text_form")
+
+btn.click(function () {
+    var converter = new showdown.Converter();
+    let text = textarea.val()
+    let html = converter.makeHtml(text);
+
+    $.ajax({
+        type:"post",
+        url:"/edit",
+        data:{
+            "text":html
+        },
+        dataType:"json",
+        error:function (error) {
+            console.log(error)
+        },
+        success:function (data) {
+            if(data)
+                window.location.href = "/text"
+        }
     })
-}
+})
+
