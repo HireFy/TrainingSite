@@ -52,17 +52,14 @@ public class CourseServiceImpl implements CourseService {
                         course.setName((String) entry.getValue());
                         break;
                     }
-
-
-                    case "type_id": {
-                        course.setType_id(new CourseType(Long.valueOf((String) entry.getValue())));
+                    case "courseType": {
+                        course.setCourseType(new CourseType(Long.valueOf((String) entry.getValue())));
                         break;
                     }
                     case "price": {
                         course.setPrice((String) entry.getValue());
                         break;
                     }
-
                     case "info": {
                         course.setInfo((String) entry.getValue());
                         break;
@@ -109,7 +106,4 @@ public class CourseServiceImpl implements CourseService {
             }
             return names.contains(name);
         }
-
-
     }
-

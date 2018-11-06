@@ -1,55 +1,24 @@
 package com.hk.TS.pojo;
 
+import lombok.Data;
+
+@Data
 public class CourseType {
     private Long id;
     private String name;
-    private Long father;
+    private Long father_id;
 
-    public CourseType(){
+    public CourseType() {
 
     }
 
-    public CourseType(Long id){
+    public CourseType(Long id) {
         this.id = id;
-
     }
 
-    public CourseType(Long id, String name, Long father){
+    public CourseType(Long id, String name, Long father_id) {
         this.id = id;
         this.name = name;
-        this.father = father;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getFather() {
-        return father;
-    }
-
-    public void setFather(Long father) {
-        this.father = father;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseType{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", father='" + father + '\'' +
-                '}';
+        this.father_id = father_id;
     }
 }

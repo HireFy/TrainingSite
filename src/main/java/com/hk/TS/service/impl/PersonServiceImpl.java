@@ -4,8 +4,12 @@ import com.hk.TS.dao.PersonDao;
 import com.hk.TS.pojo.Person;
 import com.hk.TS.pojo.Role;
 import com.hk.TS.service.PersonService;
+import com.sun.xml.internal.ws.resources.HttpserverMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.jws.WebParam;
 import javax.print.attribute.IntegerSyntax;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
@@ -179,5 +183,28 @@ public class PersonServiceImpl implements PersonService {
     /*根据名称获取用户*/
     public Person getByName(String name) {
         return personDao.getByName(name);
+    }
+
+    /*分流用户页面和管理员页面*/
+    /*todo 管理员页面model数据的填充*/
+    public ModelAndView byPassView(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        /*填充数据*/
+        List<Person> personList = personDao.getAllPersons();
+        mav.addObject("personList", personList);
+        /*等待前端*/
+
+        /*设置view*/
+        Long roleid = (Long) session.getAttribute("roleid");
+        if (roleid != null) {
+            if (roleid == 1) {
+                mav.setViewName("super_admin");
+            }
+            if (roleid == 2) {
+                mav.setViewName("super_admin");
+            }
+        }else
+            mav.setViewName("user");
+        return mav;
     }
 }
