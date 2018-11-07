@@ -15,7 +15,7 @@ ver_btn.click(function () {
     sendVerifyNum(email_input.val())
 })
 
-/*TODO 验证是不是都是数字，不是数字发送到后端会报错!*/
+
 sub_btn.click(function () {
     /*检验验证码是否正确*/
     isVerifyNumRight(num_input.val(),function () {
