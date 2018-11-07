@@ -46,8 +46,8 @@
         where p_id=#{id}
     </update>
 
-    <select id="getAllPersons" resultMap="personResultMap">
-        select Person.*, Role.* from Person, Role where p_role_id = r_id
+    <select id="getPersons" resultMap="personResultMap">
+        select Person.*, Role.* from Person, Role where p_role_id = r_id limit #{offset}, #{pageSize}
     </select>
 
     <select id="getByMail" resultMap="personResultMap">
@@ -56,5 +56,21 @@
 
     <select id="getByName" resultMap="personResultMap">
         select Person.*, Role.* from Person,Role where p_name = #{name} and p_role_id = r_id
+    </select>
+
+    <select id="isNameExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from Person
+        where p_name=#{name}
+    </select>
+
+    <select id="isMailExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from Person
+        where p_mail=#{mail}
     </select>
 </mapper>

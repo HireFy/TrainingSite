@@ -99,7 +99,7 @@ function sendVerifyNum(mail_val) {
         type: "post",
         url: "/mail/num",
         data: {
-            "toMail":mail_val
+            "toMail": mail_val
         },
         dataType: "json",
         error: function (error) {
@@ -115,7 +115,17 @@ function sendVerifyNum(mail_val) {
 
 
 /*检测验证码是否正确*/
+
+/*检测验证码是否都为数字
+* 不是数字执行failFunc()*/
 function isVerifyNumRight(num, successFunc, failFunc) {
+    for (var i = 0; i < num.length; i++) {
+        if (isNaN(num.charAt(i))) {
+            failFunc()
+            return
+        }
+    }
+
     $.ajax({
         type: "post",
         url: "/mail/verify",
@@ -145,6 +155,7 @@ function checkPass(pass, pass_box) {
     }
     pass_box.text("")
 }
+
 function checkRepass(repass, pass, repass_box) {
     if (repass != pass) {
         repass_box.text("密码不一致")

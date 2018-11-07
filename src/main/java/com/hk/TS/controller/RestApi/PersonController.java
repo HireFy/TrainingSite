@@ -31,9 +31,9 @@ public class PersonController {
         return personService.deleteById(id);
     }
 
-    @GetMapping("/all")
-    public List<Person> getAll() {
-        return personService.getAllPersons();
+    @GetMapping("/page/{pageNum}")
+    public List<Person> getPersonsByPage(@PathVariable int pageNum) {
+        return personService.getPersons(pageNum, 5);
     }
 
     @PostMapping("/update")

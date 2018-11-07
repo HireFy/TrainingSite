@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/*TODO  Person名字检查重复*/
+
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
 
@@ -40,8 +40,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> getAllPersons() {
-        return personDao.getAllPersons();
+    public List<Person> getPersons(int pageNum, int pageSize) {
+        return personDao.getPersons((pageNum-1)*pageSize, pageSize);
     }
 
     /*按照所传参数指定的属性更新*/
@@ -112,6 +112,7 @@ public class PersonServiceImpl implements PersonService {
         return person1;
     }
 
+    /*TODO 更新信息的操作是否改为用person对象，restapi那只返回更新操作的成功或失败*/
     /*更新用户*/
     public Boolean updateWithSession(Map<String, Object> map, HttpSession session) {
         Person person = new Person();
@@ -133,25 +134,14 @@ public class PersonServiceImpl implements PersonService {
         return flag;
     }
 
-    /*用户名字重复检查*/
     public Boolean isNameExist(String name) {
-        List<Person> people = this.getAllPersons();
-        List<String> names = new ArrayList<>();
-        for (Person person : people) {
-            names.add(person.getName());
-        }
-        return names.contains(name);
+        return personDao.isNameExist(name);
     }
 
 
-    /*用户邮箱去重*/
+
     public Boolean isMailExist(String mail) {
-        List<Person> people = this.getAllPersons();
-        List<String> mails = new ArrayList<>();
-        for (Person person : people) {
-            mails.add(person.getMail());
-        }
-        return mails.contains(mail);
+        return personDao.isMailExist(mail);
     }
 
     /*根据邮箱获取用户*/
@@ -190,7 +180,7 @@ public class PersonServiceImpl implements PersonService {
     public ModelAndView byPassView(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         /*填充数据*/
-        List<Person> personList = personDao.getAllPersons();
+        List<Person> personList = personDao.getPersons(1, 5);
         mav.addObject("personList", personList);
         /*等待前端*/
 

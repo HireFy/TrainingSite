@@ -13,11 +13,15 @@ public class CourseDaoTest {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-mybatis.xml");
         CourseService service = (CourseService) ctx.getBean("courseService");
-        Map<String, Object> map = new HashMap<>();
 
-        map.put("id", "1");
-        map.put("name", "Python");
-        System.out.println(service.updateById(map));
+//        Course course = new Course("Mysql", (long)1, null, 200, "", (long)5);
+//
+//        System.out.println(service.insert(course));
+
+        System.out.println(service.getCourses(1, 5));
+
+//        Course course = new Course((long) 2, "MySQL", (long)1, null, 200, null, (long)3);
+//        System.out.println(service.update(course));
     }
 
 }
