@@ -37,7 +37,7 @@ CREATE TABLE `Course` (
   CONSTRAINT `Course_ibfk_1` FOREIGN KEY (`course_type_id`) REFERENCES `CourseType` (`course_type_id`),
   CONSTRAINT `Course_ibfk_2` FOREIGN KEY (`course_cover_id`) REFERENCES `Picture` (`pic_id`),
   CONSTRAINT `Course_ibfk_3` FOREIGN KEY (`course_teacher_id`) REFERENCES `Person` (`p_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `Course` (
 
 LOCK TABLES `Course` WRITE;
 /*!40000 ALTER TABLE `Course` DISABLE KEYS */;
+INSERT INTO `Course` VALUES (1,'Python',1,NULL,200,'',5),(2,'MySQL',1,NULL,200,NULL,3);
 /*!40000 ALTER TABLE `Course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +116,7 @@ CREATE TABLE `CourseType` (
   PRIMARY KEY (`course_type_id`),
   KEY `course_type_father_id` (`course_type_father_id`),
   CONSTRAINT `CourseType_ibfk_1` FOREIGN KEY (`course_type_father_id`) REFERENCES `CourseType` (`course_type_id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,6 +125,7 @@ CREATE TABLE `CourseType` (
 
 LOCK TABLES `CourseType` WRITE;
 /*!40000 ALTER TABLE `CourseType` DISABLE KEYS */;
+INSERT INTO `CourseType` VALUES (1,'计算机',NULL),(3,'前端',NULL),(4,'后端',NULL);
 /*!40000 ALTER TABLE `CourseType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +165,7 @@ DROP TABLE IF EXISTS `Message`;
 CREATE TABLE `Message` (
   `message_id` int(11) NOT NULL,
   `message_content` text,
-  `message_author_mail_id` varchar(100) NOT NULL,
+  `message_author_mail` varchar(100) NOT NULL,
   `message_create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `message_target_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`message_id`),
@@ -283,7 +285,7 @@ CREATE TABLE `Person` (
   PRIMARY KEY (`p_id`),
   KEY `p_role_id` (`p_role_id`),
   CONSTRAINT `Person_ibfk_1` FOREIGN KEY (`p_role_id`) REFERENCES `Role` (`r_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +294,7 @@ CREATE TABLE `Person` (
 
 LOCK TABLES `Person` WRITE;
 /*!40000 ALTER TABLE `Person` DISABLE KEYS */;
-INSERT INTO `Person` VALUES (2,'fjw',12,'male','2824908821@qq.com','1212313',2,'2018-10-31 17:39:30','hit the send button to get a response.');
+INSERT INTO `Person` VALUES (2,'007',12,'male','2824908821@qq.com','1212313',1,'2018-10-31 17:39:30','hit the send button to get a response.'),(3,'wyb',23,'male','994831361@qq.com','8769asdfasd',1,'2018-11-01 17:25:06','eployment of web application directory /opt/tomcat/webapps/ma'),(4,'003',NULL,'','994831363@qq.com','qweasd',4,'2018-11-02 16:33:50',''),(5,'阿斯蒂芬',NULL,'','764699107@qq.com','123',4,'2018-11-02 17:38:54',''),(10,'qing',NULL,'','1902408716@qq.com','123',4,'2018-11-04 00:21:26',''),(11,'qing23',NULL,'','234234@qq.com','123',4,'2018-11-04 08:40:50',''),(12,'qing232',NULL,'','23423423@qq.com','123123',4,'2018-11-04 08:43:09',''),(25,'SDFSDFSDF',NULL,'','93432123@qq.com','123',4,'2018-11-04 10:54:53',''),(26,'1234234',NULL,'','29834634@qq.com','qwe',4,'2018-11-04 23:06:25',''),(27,'wer',NULL,'','995831263@qq.com','qwe',4,'2018-11-05 12:38:56','');
 /*!40000 ALTER TABLE `Person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,7 +312,7 @@ CREATE TABLE `Picture` (
   PRIMARY KEY (`pic_id`),
   KEY `pic_course_type_id` (`pic_course_type_id`),
   CONSTRAINT `Picture_ibfk_1` FOREIGN KEY (`pic_course_type_id`) REFERENCES `CourseType` (`course_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,6 +321,7 @@ CREATE TABLE `Picture` (
 
 LOCK TABLES `Picture` WRITE;
 /*!40000 ALTER TABLE `Picture` DISABLE KEYS */;
+INSERT INTO `Picture` VALUES (2,'/images/404_3.jpg',NULL);
 /*!40000 ALTER TABLE `Picture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +336,7 @@ CREATE TABLE `Role` (
   `r_id` int(11) NOT NULL AUTO_INCREMENT,
   `r_type` varchar(20) NOT NULL,
   PRIMARY KEY (`r_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +345,7 @@ CREATE TABLE `Role` (
 
 LOCK TABLES `Role` WRITE;
 /*!40000 ALTER TABLE `Role` DISABLE KEYS */;
-INSERT INTO `Role` VALUES (1,'super'),(2,'manager'),(3,'teacher');
+INSERT INTO `Role` VALUES (1,'super'),(2,'manager'),(3,'teacher'),(4,'normal');
 /*!40000 ALTER TABLE `Role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,4 +381,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-31 19:50:20
+-- Dump completed on 2018-11-07 17:23:06
