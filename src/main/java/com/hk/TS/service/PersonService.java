@@ -16,5 +16,9 @@ public interface PersonService {
 
     Person getByMail(String mail);
 
-    List<Person> getAllPersons();
+    Boolean isMailExist(String mail);
+
+    Boolean isNameExist(String name);
+
+    List<Person> getPersons(int pageNum, int pageSize);
 }

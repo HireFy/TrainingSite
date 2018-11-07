@@ -48,6 +48,6 @@ public class PersonDaoTest {
 
 //        System.out.println(service.getAllPersons());
 
-        System.out.println(service.getByMail("2824908821@qq.com"));
+        System.out.println(service.isMailExist("2824908821@qq.com"));
     }
 }

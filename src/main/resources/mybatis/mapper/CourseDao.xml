@@ -36,7 +36,7 @@
         where Course.course_id=#{id}
     </update>
 
-    <!--todo 修改-->
+
     <select id="getCourses" resultMap="courseResultMap">
        select * from Course limit #{offset}, #{pageSize}
     </select>
