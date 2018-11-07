@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.TS.dao.MessageDao">
+    <resultMap id="messageResultMap" type="Message">
+        <id property="id" column="message_id"/>
+        <result property="content" column="message_content"/>
+        <result property="mail" column="message_author_mail_id"/>
+        <result property="createTime" column="message_create_time"/>
+        <result property="targetId" column="message_target_id"/>
+    </resultMap>
+
+    <select id="getById" resultMap="messageResultMap">
+        select Message.*
+        from Message
+        where message_id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into Message (message_content, message_author_mail_id,message_target_id)
+        values
+        (#{content}, #{mail}, #{targetId})
+    </insert>
+
+    <delete id="deleteById">
+        delete from Message where message_id = #{id}
+    </delete>
+
+    <update id="update">
+        update Message set
+        message_content=#{content},
+        message_author_mail_id=#{mail},
+        message_target_id=#{targetId},
+        where message_id=#{id}
+    </update>
+
+    <select id="getAllMessages" resultMap="messageResultMap">
+        select Message.* from Message
+    </select>
+</mapper>

@@ -4,15 +4,20 @@ import com.hk.TS.dao.PersonDao;
 import com.hk.TS.pojo.Person;
 import com.hk.TS.pojo.Role;
 import com.hk.TS.service.PersonService;
+import com.sun.xml.internal.ws.resources.HttpserverMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
+import javax.print.attribute.IntegerSyntax;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
@@ -35,8 +40,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> getAllPersons() {
-        return personDao.getAllPersons();
+    public List<Person> getPersons(int pageNum, int pageSize) {
+        return personDao.getPersons((pageNum-1)*pageSize, pageSize);
     }
 
     /*按照所传参数指定的属性更新*/
@@ -48,6 +53,7 @@ public class PersonServiceImpl implements PersonService {
                     person.setName((String) entry.getValue());
                     break;
                 }
+//                修改age数据类型
                 case "age": {
                     try {
                         person.setAge(Integer.valueOf((String) entry.getValue()));
@@ -106,6 +112,7 @@ public class PersonServiceImpl implements PersonService {
         return person1;
     }
 
+    /*TODO 更新信息的操作是否改为用person对象，restapi那只返回更新操作的成功或失败*/
     /*更新用户*/
     public Boolean updateWithSession(Map<String, Object> map, HttpSession session) {
         Person person = new Person();
@@ -127,24 +134,14 @@ public class PersonServiceImpl implements PersonService {
         return flag;
     }
 
-    /*用户名字重复检查*/
     public Boolean isNameExist(String name) {
-        List<Person> people = this.getAllPersons();
-        List<String> names = new ArrayList<>();
-        for (Person person : people) {
-            names.add(person.getName());
-        }
-        return names.contains(name);
+        return personDao.isNameExist(name);
     }
 
-    /*用户邮箱去重*/
+
+
     public Boolean isMailExist(String mail) {
-        List<Person> people = this.getAllPersons();
-        List<String> mails = new ArrayList<>();
-        for (Person person : people) {
-            mails.add(person.getMail());
-        }
-        return mails.contains(mail);
+        return personDao.isMailExist(mail);
     }
 
     /*根据邮箱获取用户*/
@@ -153,10 +150,19 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /*TODO 注意邮箱重复，修改邮箱信息的时候邮箱去重*/
+    /*TODO 管理员页面要分开，一个是超级管理员，一个是信息管理员*/
     /*用户邮箱密码验证*/
     /*如果密码正确，设置session的name属性的值*/
+    /*当用户的role id为1或2时设置session
+    * */
     public Boolean isPasswordRight(Map<String, Object> idAndPass, HttpSession session) {
         Person person = this.getByMail((String) idAndPass.get("mail"));
+        Long roleid = person.getRole().getId();
+        if (roleid == 1) {
+            session.setAttribute("roleid", roleid);
+        } else if (roleid == 2) {
+            session.setAttribute("roleid", roleid);
+        }
         if (person.getPassword().equals(idAndPass.get("password"))) {
             session.setAttribute("name", person.getName());
             return true;
@@ -167,5 +173,28 @@ public class PersonServiceImpl implements PersonService {
     /*根据名称获取用户*/
     public Person getByName(String name) {
         return personDao.getByName(name);
+    }
+
+    /*分流用户页面和管理员页面*/
+    /*todo 管理员页面model数据的填充*/
+    public ModelAndView byPassView(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        /*填充数据*/
+        List<Person> personList = personDao.getPersons(1, 5);
+        mav.addObject("personList", personList);
+        /*等待前端*/
+
+        /*设置view*/
+        Long roleid = (Long) session.getAttribute("roleid");
+        if (roleid != null) {
+            if (roleid == 1) {
+                mav.setViewName("super_admin");
+            }
+            if (roleid == 2) {
+                mav.setViewName("super_admin");
+            }
+        }else
+            mav.setViewName("user");
+        return mav;
     }
 }

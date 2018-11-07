@@ -1,4 +1,4 @@
-package com.hk.TS.controller;
+package com.hk.TS.controller.backmanage;
 
 import com.hk.TS.service.impl.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +31,10 @@ public class UserController {
     }
 
     /*通过email返回user视图*/
+    /*TODO 区分开role为1和role为2的登录成功页面*/
     @RequestMapping("/user")
-    public String getUserPage(HttpSession session) {
-        return "user";
+    public ModelAndView getUserPage(HttpSession session) {
+        return personService.byPassView(session);
     }
 
     /*请求信息修改页面*/

@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()
+            +":"+request.getServerPort()+path+"/";
+%>
 <html lang="en">
 <head>
     <title>Super Administrator</title>
@@ -13,10 +19,6 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
-    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
-    <!--<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
-    <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -129,18 +131,17 @@
         </div>
     </div>
 </div>
-
-<div class="container-fluid ">
+<div class="container-fluid">
     <div class="row-fluid">
         <div class="span3" id="sidebar">
             <ul class="nav nav-list bs-docs-sidenav nav-collapse">
                 <li>
                     <a href="index.html"><i class="icon-chevron-right"></i> 首&nbsp&nbsp&nbsp&nbsp页</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="#"><i class="icon-chevron-right"></i> 新&nbsp;闻&nbsp;管&nbsp;理</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#"><i class="icon-chevron-right"></i> 用&nbsp;户&nbsp;管&nbsp;理</a>
                 </li>
                 <li>
@@ -194,76 +195,19 @@
                         <tr>
                             <th>id</th>
                             <th>昵称</th>
-                            <th>内容</th>
-                            <th>作者</th>
-                            <th>发布时间</th>
-                            <th>评论</th>
-                            <th>管理</th>
+                            <th>年龄</th>
+                            <th>性别</th>
+                            <th>邮箱</th>
+                            <th>密码</th>
+                            <th>角色</th>
+                            <th>创建时间</th>
+                            <th>个人介绍</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>001</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div>
-                                    <div style="float: left;"><button id="modification_news" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >修改</button></div>
-                                    <!-- 模态框（Modal） -->
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 80%;left: 25%">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                        &times;
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel">
-                                                        修改新闻
-                                                    </h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                   <table style="table-layout:fixed" class="table  table-bordered table-hover table-striped">
-                                                       <thead>
-                                                       <tr>
-                                                           <th>新闻id</th>
-                                                           <th>标题</th>
-                                                           <th>内容</th>
-                                                           <th>作者</th>
-                                                           <th>发布时间</th>
-                                                           <th>评论</th>
-                                                       </tr>
-                                                       </thead>
-                                                       <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                       </tbody>
-                                                   </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                                    </button>
-                                                    <button id="" type="button" class="btn btn-primary">
-                                                        提交更改
-                                                    </button>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal -->
-                                    </div>
 
-                                    <div><button id="news_delete" class="btn btn-primary btn-lg" style="margin-left: 2px" data-toggle="modal" data-target="#myModal">删除</button></div>
-                                </div>
-                            </td>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -272,6 +216,7 @@
         </div>
     </div>
 </div>
+<hr>
 <footer>
     <p>我们是xxx培训中心，联系电话：10086</p>
 </footer>

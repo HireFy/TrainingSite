@@ -31,9 +31,9 @@ public class PersonController {
         return personService.deleteById(id);
     }
 
-    @GetMapping("/all")
-    public List<Person> getAll() {
-        return personService.getAllPersons();
+    @GetMapping("/page/{pageNum}")
+    public List<Person> getPersonsByPage(@PathVariable int pageNum) {
+        return personService.getPersons(pageNum, 5);
     }
 
     @PostMapping("/update")
@@ -49,6 +49,10 @@ public class PersonController {
         return personService.isNameExist((String) name);
     }
 
+    /*验证密码是否正确*/
+    /*验证用户的role id是否为管理员
+    * 是管理员的话，在/user那做判断跳转到管理员页面
+    * 不是的话，跳转到普通页面*/
     @PostMapping("/password/verify")
     public Boolean isPassRight(@RequestBody Map<String, Object> mailAndPass, HttpSession session) {
         return personService.isPasswordRight(mailAndPass, session);

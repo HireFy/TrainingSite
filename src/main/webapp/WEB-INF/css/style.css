@@ -1,0 +1,14 @@
+/* 
+	project:  small corporation
+	author:   luka cvrk (www.cssmoban.com) 
+*/
+
+
+#main {  width: 1000px; margin: 0 auto 20px; }
+	#main img { float: left; border: 3px solid #eee; padding: 1px; margin: 0 15px 5px 0; }
+	#line { clear: both; padding: 3px; margin: 0 0 15px; background: #fff url(images/smalldot.gif) repeat-x; }
+	#ad { float: right; text-align: center; padding: 33px 0 0; width: 250px; border: 3px solid #eee; color: #ccc; height: 50px; margin: 0 0 15px; }
+	#shortnews { float: right; width: 250px; }
+	#right{float: right}
+	.news { border-bottom: 1px solid #eee; padding: 0 0 2px; margin: 0 0 10px;}
+	

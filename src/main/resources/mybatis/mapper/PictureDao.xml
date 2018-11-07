@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.TS.dao.PictureDao">
+    <resultMap id="picMap" type="Picture">
+        <id column="pic_id" property="id"/>
+        <result column="pic_href" property="href"/>
+        <result column="pic_course_type_id" property="courseTypeId"/>
+    </resultMap>
+
+    <select id="getByHref" resultMap="picMap">
+        select * from Picture where pic_href = #{href}
+    </select>
+
+    <select id="getById" resultMap="picMap">
+        select * from Picture where pic_id = #{id}
+    </select>
+
+    <select id="getPics" resultMap="picMap">
+        select * from Picture limit #{offset}, #{size}
+    </select>
+
+    <delete id="deleteById">
+        delete from Picture where pic_id = #{id}
+    </delete>
+
+    <update id="update">
+        update Picture set
+        pic_href=#{href},
+        pic_course_type_id=#{courseTypeId}
+        where pic_id=#{id}
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into Picture(pic_href, pic_course_type_id)
+        values (#{href}, #{courseTypeId})
+    </insert>
+
+    <select id="isHrefExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from Picture
+        where pic_href=#{href}
+    </select>
+</mapper>

@@ -1,6 +1,6 @@
 .idea/
-CHANGELOG.md
 target/
+CHANGELOG.md
 node_modules/
 package-lock.json
 package.json
