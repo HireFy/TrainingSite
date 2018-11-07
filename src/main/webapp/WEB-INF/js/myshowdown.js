@@ -32,7 +32,7 @@ btn.click(function () {
         },
         success:function (data) {
             if(data)
-                window.location.href = "/text"
+                window.location.href = "/news/showdown/text"
         }
     })
 })
