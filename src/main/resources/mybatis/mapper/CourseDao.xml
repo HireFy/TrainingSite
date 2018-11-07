@@ -7,23 +7,18 @@
         <result property="name" column="course_name"/>
         <result property="info" column="course_info"/>
         <result property="price" column="price"/>
-        <association property="courseType" javaType="CourseType">
-            <id column="course_type_id" property="id"/>
-            <result column="course_type_name" property="name"/>
-            <result column="course_type_father_id" property="father_id"/>
-        </association>
+        <result property="coverPicId" column="course_cover_id"/>
+        <result property="courseTypeId" column="course_type_id"/>
+        <result property="teacherId" column="course_teacher_id"/>
     </resultMap>
 
     <select id="getById" resultMap="courseResultMap">
-        select Course.*,CourseType.*
-        from Course,CourseType
-        where course_id = #{id} and Course.course_type_id = CourseType.course_type_id
+        select * from Course where course_id = #{id}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into Course (course_name, course_type_id,price,course_info)
-        values
-        (#{name}, #{courseType.id}, #{price}, #{info})
+        insert into Course (course_name, course_type_id, course_cover_id, price, course_info, course_teacher_id)
+        VALUES (#{name}, #{courseTypeId}, #{coverPicId}, #{price}, #{info}, #{teacherId})
     </insert>
 
     <delete id="deleteById">
@@ -33,15 +28,24 @@
     <update id="update">
         update Course set
         course_name=#{name},
-        course_type_id=#{courseType.id},
+        course_type_id=#{courseTypeId},
         price=#{price},
-        course_info=#{info}
+        course_info=#{info},
+        course_cover_id=#{coverPicId},
+        course_teacher_id=#{teacherId}
         where Course.course_id=#{id}
     </update>
 
-    <select id="getAllCourse" resultMap="courseResultMap">
-        select Course.*, CourseType.*
-        from Course, CourseType
-        where Course.course_type_id = CourseType.course_type_id
+    <!--todo 修改-->
+    <select id="getCourses" resultMap="courseResultMap">
+       select * from Course limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="isNameExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from Course
+        where course_name=#{name}
     </select>
 </mapper>

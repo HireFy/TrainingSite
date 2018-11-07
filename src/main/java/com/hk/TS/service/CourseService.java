@@ -12,7 +12,9 @@ public interface CourseService {
 
     Boolean deleteById(Long id);
 
-    Boolean updateById(Map<String, Object> maps);
+    Boolean update(Course course);
 
-    List<Course> getAllCourse();
+    List<Course> getCourses(int pageNum, int pageSize);
+
+    Boolean isNameExist(String name);
 }
