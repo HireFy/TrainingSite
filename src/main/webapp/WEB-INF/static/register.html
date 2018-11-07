@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()
-            +":"+request.getServerPort()+path+"/";
-%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,40 +29,42 @@
             <div class="form-horizontal col-md-offset-3" id="login_form">
                 <h3 class="form-title">REGISTER</h3>
                 <div class="col-md-9">
-                    <form id="register_form" action="/user" method="post">
                     <div class="form-group">
                         <i class="fa fa-user fa-lg"></i>
-                        <input class="form-control required" type="text" placeholder="Username" id="username" name="username" autofocus="autofocus"/>
-                        <span name="username_info" style="color: #FF4136"></span>
+                        <input class="form-control required" type="text" placeholder="Username" id="username" name="username" autofocus="autofocus" maxlength="20"/>
+                    </div>
+                    <div class="form-group">
+                        <i class="glyphicon glyphicon-dashboard"></i>
+                        <input class="form-control required" type="text" placeholder="Gender" id="gender" name="gender" autofocus="autofocus" maxlength="20"/>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="Password" id="password" name="password"/>
-                        <span name="pass_info" style="color: #FF4136"></span>
+                        <input class="form-control required" type="password" placeholder="Password" id="password" name="password" maxlength="8"/>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="password" placeholder="Repassword" id="repassword" name="repassword" />
-                        <span name="repass_info" style="color: #FF4136"></span>
+                        <input class="form-control required" type="password" placeholder="Repassword" id="repassword" name="repassword" maxlength="8"/>
                     </div>
                     <div class="form-group">
                         <i class="glyphicon glyphicon-envelope"></i>
-                        <input class="form-control required" type="text" placeholder="Email" id="email" style="width: 400px" name="email"/>
-                        <span name="email_info" style="color: #FF4136"></span>
-                        <input class="form-control required" type="text" placeholder="verify number" id="emailNum" style="width: 400px" name="emailNum"/>
-                        <button type="button" class="btn btn-success pull-right" name="getVerifyNum" style="margin: -35px;margin-right: 10px;width: 200px;">
-                            获取验证码
-                        </button>
+                        <input class="form-control required" type="text" placeholder="Email" id="email"  name="email" maxlength="8"/>
                     </div>
-                    </form>
-                    <div class="form-group col-md-offset-9">
-                        <a href="#"><button type="button" class="btn btn-success pull-right" name="submit">确认</button></a>
+                    <div class="form-group" >
+                        <i class="glyphicon glyphicon-pushpin"></i>
+                        <input class="form-control required" type="text" placeholder="Verification Code" id="ver_code" name="password" maxlength="8" style="width: 300px;"/>
+                        <button type="submit" class="btn btn-success pull-right" name="submit" style="width: 200px;margin-top: -35px;">获取验证码</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" value="1"/>同意服务条款
+                        </label>
+                    </div>
+                    <div>
+                        <a href="login.html"><button type="submit" class="btn btn-success " style="float: none;display: block;margin-left: auto;margin-right: auto;background-color: #00CC00;color: #f0f0f0;width: 100px" name="submit">注册</button></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-<script src="/js/service/common.js"></script>
-<script src="/js/service/register.js"></script>
 </html>

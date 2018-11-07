@@ -46,7 +46,8 @@ public class PersonDaoTest {
 
 //        System.out.println(service.updateNameById(maps));
 
-        System.out.println(service.getAllPersons());
+//        System.out.println(service.getAllPersons());
 
+        System.out.println(service.getByMail("2824908821@qq.com"));
     }
 }

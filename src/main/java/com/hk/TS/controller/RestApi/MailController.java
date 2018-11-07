@@ -15,23 +15,23 @@ public class MailController {
     @Autowired
     private MailService mailService;
 
+    /*TODO 有时候用户输入的邮箱是不存在的。但是邮箱格式正确，这时发送邮件会报错找不到目标地址
+     */
     /*检测邮箱是否存在*/
     @PostMapping("/exist")
-    public Boolean isMailExist(@RequestBody String mail) {
-        System.out.println("服务端收到的邮箱 " + mail);
+    public Boolean isMailExist(@RequestParam String mail) {
         return mailService.isMailExist(mail);
     }
 
     /*发送验证码*/
     @PostMapping("/num")
-    public Boolean getVerifyNumber(@RequestBody String toMail, HttpSession session) throws MessagingException {
+    public Boolean getVerifyNumber(@RequestParam String toMail, HttpSession session) throws MessagingException {
         return mailService.sendVerifyNum(toMail, session);
     }
 
     /*检测前端发送的验证码是否正确*/
     @PostMapping("/verify")
     public Boolean verifyNum(@RequestBody Integer num, HttpSession session) {
-        Integer serverNum = (Integer) session.getAttribute("serverMailNum");
-        return serverNum.equals(num);
+        return mailService.isVerifyNumRight(num, session);
     }
 }
