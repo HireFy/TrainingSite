@@ -16,7 +16,7 @@ public class Index {
 //        logger.info("servlet已经找到");
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("modify_information");
+        modelAndView.setViewName("newsText");
         return modelAndView;
     }
 }
