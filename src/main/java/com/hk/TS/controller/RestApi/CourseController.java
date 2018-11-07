@@ -17,7 +17,7 @@ public class CourseController {
     private CourseServiceImpl courseService;
 
     @PostMapping("/create")
-    public Course create(@RequestBody Course course) {
+    public Boolean create(@RequestBody Course course) {
         return courseService.create(course);
     }
 
@@ -33,12 +33,12 @@ public class CourseController {
 
     @GetMapping("/all")
     public List<Course> getAll() {
-        return courseService.getAllCourse();
+        return courseService.getCourses(1, Integer.MAX_VALUE);
     }
 
     @PostMapping("/update")
-    public Course updatePerson(@RequestBody Map<String, Object> map) {
-        return courseService.update(map);
+    public Boolean updatePerson(@RequestBody Course course) {
+        return courseService.update(course);
     }
 
     @PostMapping("/name/exist")

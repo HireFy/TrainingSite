@@ -6,7 +6,7 @@ import lombok.Data;
 public class CourseType {
     private Long id;
     private String name;
-    private Long father_id;
+    private Long fatherId;
 
     public CourseType() {
 
@@ -16,9 +16,23 @@ public class CourseType {
         this.id = id;
     }
 
-    public CourseType(Long id, String name, Long father_id) {
+    public CourseType(String name, Long fatherId) {
+        this.name = name;
+        this.fatherId = fatherId;
+    }
+
+    public CourseType(String name) {
+        this.name = name;
+    }
+
+    public CourseType(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.father_id = father_id;
+    }
+
+    public CourseType(Long id, String name, Long fatherId) {
+        this.id = id;
+        this.name = name;
+        this.fatherId = fatherId;
     }
 }
