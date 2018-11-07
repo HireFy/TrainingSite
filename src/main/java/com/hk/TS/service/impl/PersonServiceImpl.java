@@ -2,19 +2,13 @@ package com.hk.TS.service.impl;
 
 import com.hk.TS.dao.PersonDao;
 import com.hk.TS.pojo.Person;
-import com.hk.TS.pojo.Role;
 import com.hk.TS.service.PersonService;
-import com.sun.xml.internal.ws.resources.HttpserverMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.WebParam;
-import javax.print.attribute.IntegerSyntax;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +27,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Boolean insert(Person person) {
         /*如果person的role没有，默认为4，normal角色*/
-        if (person.getRole().getId() == null) {
-            person.setRole(new Role((long) 4));
+        if (person.getRoleId() == null) {
+            person.setRoleId((long) 4);
         }
         return personDao.insert(person);
     }
@@ -75,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
                     break;
                 }
                 case "role": {
-                    person.setRole(new Role(Long.valueOf((String) entry.getValue())));
+                    person.setRoleId(Long.valueOf((String) entry.getValue()));
                     break;
                 }
                 case "createTime": {
@@ -157,7 +151,7 @@ public class PersonServiceImpl implements PersonService {
     * */
     public Boolean isPasswordRight(Map<String, Object> idAndPass, HttpSession session) {
         Person person = this.getByMail((String) idAndPass.get("mail"));
-        Long roleid = person.getRole().getId();
+        Long roleid = person.getRoleId();
         if (roleid == 1) {
             session.setAttribute("roleid", roleid);
         } else if (roleid == 2) {

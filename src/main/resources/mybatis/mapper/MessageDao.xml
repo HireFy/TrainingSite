@@ -27,10 +27,12 @@
     </delete>
 
     <update id="update">
-        update Message set
-        message_content=#{content},
-        message_author_mail=#{mail},
-        message_target_id=#{targetMessageId}
+        update Message
+        <set>
+            <if test="content != null">message_content=#{content},</if>
+            <if test="mail != null">message_author_mail=#{mail},</if>
+            <if test="targetMessageId">message_target_id=#{targetMessageId}</if>
+        </set>
         where message_id=#{id}
     </update>
 

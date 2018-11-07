@@ -26,9 +26,11 @@
     </delete>
 
     <update id="update">
-        update CourseType set
-        course_type_name=#{name},
-        course_type_father_id=#{fatherId}
+        update CourseType
+        <set>
+            <if test="name != null">course_type_name=#{name},</if>
+            <if test="fatherId != null">course_type_father_id=#{fatherId}</if>
+        </set>
         where course_type_id=#{id}
     </update>
 

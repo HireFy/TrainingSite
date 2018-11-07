@@ -25,9 +25,11 @@
     </delete>
 
     <update id="update">
-        update Picture set
-        pic_href=#{href},
-        pic_course_type_id=#{courseTypeId}
+        update Picture
+        <set>
+            <if test="href != null">pic_href=#{href},</if>
+            <if test="courseTypeId != null">pic_course_type_id=#{courseTypeId}</if>
+        </set>
         where pic_id=#{id}
     </update>
 
