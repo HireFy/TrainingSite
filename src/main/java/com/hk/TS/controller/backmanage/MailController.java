@@ -1,7 +1,6 @@
-package com.hk.TS.controller.RestApi;
+package com.hk.TS.controller.backmanage;
 
-import com.hk.TS.service.MailService;
-import com.hk.TS.util.MailUtil;
+import com.hk.TS.service.impl.MailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpSession;
 public class MailController {
 
     @Autowired
-    private MailService mailService;
+    private MailServiceImpl mailService;
 
     /*TODO 有时候用户输入的邮箱是不存在的。但是邮箱格式正确，这时发送邮件会报错找不到目标地址
      */
