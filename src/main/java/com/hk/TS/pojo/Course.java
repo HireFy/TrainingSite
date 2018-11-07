@@ -1,4 +1,6 @@
 package com.hk.TS.pojo;
+import lombok.Data;
+
 
 import lombok.Data;
 
@@ -13,6 +15,7 @@ public class Course {
     private Long teacherId;
 
     public Course() {
+
 
     }
 
