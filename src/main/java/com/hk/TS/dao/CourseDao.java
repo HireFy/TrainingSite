@@ -1,6 +1,8 @@
 package com.hk.TS.dao;
 
 import com.hk.TS.pojo.Course;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface CourseDao {
@@ -10,7 +12,10 @@ public interface CourseDao {
 
     Boolean deleteById(Long id);
 
-    Boolean update(Course person);
+    Boolean update(Course course);
 
-    List<Course> getAllCourse();
+    Boolean isNameExist(String name);
+
+    List<Course> getCourses(@Param("offset") int offset, @Param("pageSize") int pageSize);
+
 }

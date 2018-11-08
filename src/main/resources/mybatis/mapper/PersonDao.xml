@@ -11,22 +11,19 @@
         <result property="info" column="p_info"/>
         <result property="mail" column="p_mail"/>
         <result property="createTime" column="p_create_time"/>
-        <association property="role" javaType="Role">
-            <id column="r_id" property="id"/>
-            <result column="r_type" property="type"/>
-        </association>
+        <result property="roleId" column="p_role_id"/>
     </resultMap>
 
     <select id="getById" resultMap="personResultMap">
-        select Person.*,Role.r_id, Role.r_type
-        from Person,Role
-        where p_id = #{id} and p_role_id = r_id
+        select *
+        from Person
+        where p_id = #{id}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into Person (p_name, p_age, p_gender, p_password, p_mail, p_role_id, p_info)
         values
-        (#{name}, #{age}, #{gender}, #{password}, #{mail}, #{role.id}, #{info})
+        (#{name}, #{age}, #{gender}, #{password}, #{mail}, #{roleId}, #{info})
     </insert>
 
     <delete id="deleteById">
@@ -34,23 +31,61 @@
     </delete>
 
     <update id="update">
-        update Person set
-        p_name=#{name},
-        p_age=#{age},
-        p_role_id=#{role.id},
-        p_create_time=#{createTime},
-        p_gender=#{gender},
-        p_info=#{info},
-        p_mail=#{mail},
-        p_password=#{password}
+        update Person
+        <set>
+            <if test="name != null">
+                p_name=#{name},
+            </if>
+            <if test="age != null">
+                p_age=#{age},
+            </if>
+            <if test="roleId != null">
+                p_role_id=#{roleId},
+            </if>
+            <if test="createTime != null">
+                p_create_time=#{createTime},
+            </if>
+            <if test="gender != null">
+                p_gender=#{gender},
+            </if>
+            <if test="info != null">
+                p_info=#{info},
+            </if>
+            <if test="mail">
+                p_mail=#{mail},
+            </if>
+            <if test="password">
+                p_password=#{password}
+            </if>
+        </set>
         where p_id=#{id}
     </update>
 
-    <select id="getAllPersons" resultMap="personResultMap">
-        select Person.*, Role.* from Person, Role where p_role_id = r_id
+    <select id="getPersons" resultMap="personResultMap">
+        select * from Person where limit #{offset}, #{pageSize}
     </select>
 
     <select id="getByMail" resultMap="personResultMap">
-        select Person.*, Role.* from Person,Role where p_mail = #{mail} and p_role_id = r_id
+        select * from Person where p_mail = #{mail}
+    </select>
+
+    <select id="getByName" resultMap="personResultMap">
+        select * from Person where p_name = #{name}
+    </select>
+
+    <select id="isNameExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from Person
+        where p_name=#{name}
+    </select>
+
+    <select id="isMailExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from Person
+        where p_mail=#{mail}
     </select>
 </mapper>

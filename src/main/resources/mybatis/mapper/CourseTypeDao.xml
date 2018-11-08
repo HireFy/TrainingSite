@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.TS.dao.CourseTypeDao">
+
+    <resultMap id="courseTypeMap" type="CourseType">
+        <id column="course_type_id" property="id"/>
+        <result column="course_type_name" property="name"/>
+        <result column="course_type_father_id" property="fatherId"/>
+    </resultMap>
+
+    <select id="getByName" resultMap="courseTypeMap">
+        select * from CourseType where course_type_name = #{name}
+    </select>
+
+    <select id="getById" resultMap="courseTypeMap">
+        select * from CourseType where course_type_id = #{id}
+    </select>
+
+    <select id="getCouseTypes" resultMap="courseTypeMap">
+        select * from CourseType limit #{offset}, #{size}
+    </select>
+
+    <delete id="deleteById">
+        delete from CourseType where course_type_id = #{id}
+    </delete>
+
+    <update id="update">
+        update CourseType
+        <set>
+            <if test="name != null">course_type_name=#{name},</if>
+            <if test="fatherId != null">course_type_father_id=#{fatherId}</if>
+        </set>
+        where course_type_id=#{id}
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into CourseType (course_type_name, course_type_father_id)
+        values (#{name}, #{fatherId})
+    </insert>
+
+    <select id="isNameExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from CourseType
+        where course_type_name=#{name}
+    </select>
+</mapper>

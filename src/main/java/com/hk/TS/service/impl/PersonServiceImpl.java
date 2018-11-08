@@ -2,19 +2,17 @@ package com.hk.TS.service.impl;
 
 import com.hk.TS.dao.PersonDao;
 import com.hk.TS.pojo.Person;
-import com.hk.TS.pojo.Role;
 import com.hk.TS.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.print.attribute.IntegerSyntax;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/*TODO  Person名字检查重复*/
+
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
 
@@ -29,25 +27,20 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Boolean insert(Person person) {
         /*如果person的role没有，默认为4，normal角色*/
-        if (person.getRole().getId() == null) {
-            person.setRole(new Role((long) 4));
+        if (person.getRoleId() == null) {
+            person.setRoleId((long) 4);
         }
         return personDao.insert(person);
     }
 
     @Override
-    public List<Person> getAllPersons() {
-        return personDao.getAllPersons();
+    public List<Person> getPersons(int pageNum, int pageSize) {
+        return personDao.getPersons((pageNum-1)*pageSize, pageSize);
     }
 
     /*按照所传参数指定的属性更新*/
     @Override
-    public Boolean updateById(Map<String, Object> maps) {
-        Long id = Long.valueOf((String) maps.get("id"));
-
-        /*找到指定id的person*/
-        Person person = personDao.getById(id);
-
+    public Boolean update(Person person, Map<String, Object> maps) {
         for (Map.Entry entry : maps.entrySet()) {
             switch ((String) entry.getKey()) {
                 case "name": {
@@ -56,8 +49,12 @@ public class PersonServiceImpl implements PersonService {
                 }
 //                修改age数据类型
                 case "age": {
-                    person.setAge(Integer.valueOf((String)entry.getValue()));
-                    break;
+                    try {
+                        person.setAge(Integer.valueOf((String) entry.getValue()));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        break;
+                    }
                 }
                 case "gender": {
                     person.setGender((String) entry.getValue());
@@ -67,12 +64,12 @@ public class PersonServiceImpl implements PersonService {
                     person.setPassword((String) entry.getValue());
                     break;
                 }
-                case "mail":{
+                case "mail": {
                     person.setMail((String) entry.getValue());
                     break;
                 }
                 case "role": {
-                    person.setRole(new Role(Long.valueOf((String) entry.getValue())));
+                    person.setRoleId(Long.valueOf((String) entry.getValue()));
                     break;
                 }
                 case "createTime": {
@@ -98,57 +95,100 @@ public class PersonServiceImpl implements PersonService {
 
     /*创建用户*/
     /*todo: 前台传输的数据报错的异常检测，insert操作异常的捕获处理*/
-    public Person create(Person person) {
+    public Person create(Person person, HttpSession session) {
         Person person1 = new Person();
 
         if (this.insert(person)) {
-            return person1 = this.getById(person.getId());
+            person1 = this.getById(person.getId());
+            session.setAttribute("name", person1.getName());
+            return person1;
         }
         return person1;
     }
 
+    /*TODO 更新信息的操作是否改为用person对象，restapi那只返回更新操作的成功或失败*/
     /*更新用户*/
-    public Person update(Map<String, Object> map) {
+    public Boolean updateWithSession(Map<String, Object> map, HttpSession session) {
         Person person = new Person();
-        if (this.updateById(map)) {
-            person = this.getById(Long.valueOf((String) map.get("id")));
-        }
-        return person;
+        Boolean flag = false;
+        String name = (String) session.getAttribute("name");
+        /*如果session中name为空
+         * 就代表这请求是从忘记密码那来的
+         * 就获取session中的邮箱*/
+        if (name == null) {
+            String mail = (String) session.getAttribute("mail");
+            person = this.getByMail(mail);
+        } else
+            person = this.getByName(name);
+
+        if (this.update(person, map))
+            flag = true;
+
+        session.setAttribute("name", person.getName());
+        return flag;
     }
 
-    /*用户名字重复检查*/
     public Boolean isNameExist(String name) {
-        List<Person> people = this.getAllPersons();
-        List<String> names = new ArrayList<>();
-        for (Person person : people) {
-            names.add(person.getName());
-        }
-        return names.contains(name);
+        return personDao.isNameExist(name);
     }
 
 
-    /*用户邮箱去重*/
+
     public Boolean isMailExist(String mail) {
-        List<Person> people = this.getAllPersons();
-        List<String> mails = new ArrayList<>();
-        for (Person person : people) {
-            mails.add(person.getMail());
-        }
-        return mails.contains(mail);
+        return personDao.isMailExist(mail);
     }
 
-    /*根据名字获取用户*/
+    /*根据邮箱获取用户*/
     public Person getByMail(String mail) {
         return personDao.getByMail(mail);
     }
 
-    /*TODO 注意邮箱重复，在注册的时候检查邮箱是否重复，修改邮箱信息的时候邮箱去重*/
+    /*TODO 注意邮箱重复，修改邮箱信息的时候邮箱去重*/
+    /*TODO 管理员页面要分开，一个是超级管理员，一个是信息管理员*/
     /*用户邮箱密码验证*/
-    public Boolean isPasswordRight(Map<String,Object> idAndPass) {
+    /*如果密码正确，设置session的name属性的值*/
+    /*当用户的role id为1或2时设置session
+    * */
+    public Boolean isPasswordRight(Map<String, Object> idAndPass, HttpSession session) {
         Person person = this.getByMail((String) idAndPass.get("mail"));
+        Long roleid = person.getRoleId();
+        if (roleid == 1) {
+            session.setAttribute("roleid", roleid);
+        } else if (roleid == 2) {
+            session.setAttribute("roleid", roleid);
+        }
         if (person.getPassword().equals(idAndPass.get("password"))) {
+            session.setAttribute("name", person.getName());
             return true;
         }
         return false;
+    }
+
+    /*根据名称获取用户*/
+    public Person getByName(String name) {
+        return personDao.getByName(name);
+    }
+
+    /*分流用户页面和管理员页面*/
+    /*todo 管理员页面model数据的填充*/
+    public ModelAndView byPassView(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        /*填充数据*/
+        List<Person> personList = personDao.getPersons(1, 5);
+        mav.addObject("personList", personList);
+        /*等待前端*/
+
+        /*设置view*/
+        Long roleid = (Long) session.getAttribute("roleid");
+        if (roleid != null) {
+            if (roleid == 1) {
+                mav.setViewName("super_admin");
+            }
+            if (roleid == 2) {
+                mav.setViewName("super_admin");
+            }
+        }else
+            mav.setViewName("user");
+        return mav;
     }
 }

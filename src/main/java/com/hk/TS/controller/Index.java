@@ -16,8 +16,10 @@ public class Index {
         return "loginTest";
     }
 
+
     @RequestMapping("/index")
     public String index() {
-        return "index";
+        return "/WEB-INF/jsp/user.jsp";
+
     }
 }

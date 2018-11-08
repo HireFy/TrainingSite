@@ -2,6 +2,7 @@ package com.hk.TS.dao;
 
 import com.hk.TS.controller.Index;
 import com.hk.TS.pojo.Person;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -17,5 +18,11 @@ public interface PersonDao {
 
     Person getByMail(String mail);
 
-    List<Person> getAllPersons();
+    Person getByName(String name);
+
+    Boolean isNameExist(String name);
+
+    Boolean isMailExist(String mail);
+
+    List<Person> getPersons(@Param("offset") int offset, @Param("pageSize") int pageSize);
 }

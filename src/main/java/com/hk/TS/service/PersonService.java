@@ -12,9 +12,13 @@ public interface PersonService {
 
     Boolean deleteById(Long id);
 
-    Boolean updateById(Map<String, Object> maps);
+    Boolean update(Person person,Map<String, Object> maps);
 
     Person getByMail(String mail);
 
-    List<Person> getAllPersons();
+    Boolean isMailExist(String mail);
+
+    Boolean isNameExist(String name);
+
+    List<Person> getPersons(int pageNum, int pageSize);
 }

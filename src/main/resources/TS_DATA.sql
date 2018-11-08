@@ -50,58 +50,6 @@ LOCK TABLES `Course` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `CoursePic`
---
-
-DROP TABLE IF EXISTS `CoursePic`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CoursePic` (
-  `course_id` int(11) NOT NULL,
-  `pic_id` int(11) NOT NULL,
-  KEY `course_id` (`course_id`),
-  KEY `pic_id` (`pic_id`),
-  CONSTRAINT `CoursePic_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `Course` (`course_id`),
-  CONSTRAINT `CoursePic_ibfk_2` FOREIGN KEY (`pic_id`) REFERENCES `Picture` (`pic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CoursePic`
---
-
-LOCK TABLES `CoursePic` WRITE;
-/*!40000 ALTER TABLE `CoursePic` DISABLE KEYS */;
-/*!40000 ALTER TABLE `CoursePic` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `CourseTeacher`
---
-
-DROP TABLE IF EXISTS `CourseTeacher`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CourseTeacher` (
-  `course_id` int(11) NOT NULL,
-  `teacher_id` int(11) NOT NULL,
-  KEY `course_id` (`course_id`),
-  KEY `teacher_id` (`teacher_id`),
-  CONSTRAINT `CourseTeacher_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `Course` (`course_id`),
-  CONSTRAINT `CourseTeacher_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `Person` (`p_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CourseTeacher`
---
-
-LOCK TABLES `CourseTeacher` WRITE;
-/*!40000 ALTER TABLE `CourseTeacher` DISABLE KEYS */;
-/*!40000 ALTER TABLE `CourseTeacher` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `CourseType`
 --
 
@@ -128,32 +76,6 @@ LOCK TABLES `CourseType` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `CourseVideo`
---
-
-DROP TABLE IF EXISTS `CourseVideo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CourseVideo` (
-  `course_id` int(11) NOT NULL,
-  `v_id` int(11) NOT NULL,
-  KEY `course_id` (`course_id`),
-  KEY `v_id` (`v_id`),
-  CONSTRAINT `CourseVideo_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `Course` (`course_id`),
-  CONSTRAINT `CourseVideo_ibfk_2` FOREIGN KEY (`v_id`) REFERENCES `Video` (`v_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CourseVideo`
---
-
-LOCK TABLES `CourseVideo` WRITE;
-/*!40000 ALTER TABLE `CourseVideo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `CourseVideo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Message`
 --
 
@@ -161,9 +83,9 @@ DROP TABLE IF EXISTS `Message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Message` (
-  `message_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL AUTO_INCREMENT,
   `message_content` text,
-  `message_author_mail_id` varchar(100) NOT NULL,
+  `message_author_mail` varchar(100) NOT NULL,
   `message_create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `message_target_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`message_id`),
@@ -194,12 +116,12 @@ CREATE TABLE `News` (
   `news_author_id` int(11) NOT NULL,
   `news_content` text,
   `news_create_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `news_type_id` int(11) NOT NULL,
+  `news_type_id` int(11) DEFAULT NULL,
   `news_click_count` int(11) DEFAULT NULL,
   PRIMARY KEY (`news_id`),
   KEY `news_type_id` (`news_type_id`),
-  CONSTRAINT `News_ibfk_1` FOREIGN KEY (`news_type_id`) REFERENCES `NewsType` (`news_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `News_ibfk_1` FOREIGN KEY (`news_type_id`) REFERENCES `NewsType` (`news_type_id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,33 +130,8 @@ CREATE TABLE `News` (
 
 LOCK TABLES `News` WRITE;
 /*!40000 ALTER TABLE `News` DISABLE KEYS */;
+INSERT INTO `News` VALUES (3,'title',3,'Est et harum voluptatibus natus non atque qui. Non ut fuga suscipit asperiores. Animi quia impedit ex ut','2018-11-08 11:03:18',NULL,NULL),(4,'title',3,'Est et harum voluptatibus natus non atque qui. Non ut fuga suscipit asperiores. Animi quia impedit ex ut',NULL,NULL,NULL),(6,'title',3,'Nobis tempore reprehenderit ut incidunt.','2018-11-08 11:08:59',5,NULL);
 /*!40000 ALTER TABLE `News` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `NewsPic`
---
-
-DROP TABLE IF EXISTS `NewsPic`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `NewsPic` (
-  `news_id` int(11) NOT NULL,
-  `news_pic_id` int(11) NOT NULL,
-  KEY `news_id` (`news_id`),
-  KEY `news_pic_id` (`news_pic_id`),
-  CONSTRAINT `NewsPic_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `News` (`news_id`),
-  CONSTRAINT `NewsPic_ibfk_2` FOREIGN KEY (`news_pic_id`) REFERENCES `Picture` (`pic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `NewsPic`
---
-
-LOCK TABLES `NewsPic` WRITE;
-/*!40000 ALTER TABLE `NewsPic` DISABLE KEYS */;
-/*!40000 ALTER TABLE `NewsPic` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -251,7 +148,7 @@ CREATE TABLE `NewsType` (
   PRIMARY KEY (`news_type_id`),
   KEY `news_type_father_id` (`news_type_father_id`),
   CONSTRAINT `NewsType_ibfk_1` FOREIGN KEY (`news_type_father_id`) REFERENCES `NewsType` (`news_type_id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,6 +157,7 @@ CREATE TABLE `NewsType` (
 
 LOCK TABLES `NewsType` WRITE;
 /*!40000 ALTER TABLE `NewsType` DISABLE KEYS */;
+INSERT INTO `NewsType` VALUES (5,'Java',NULL);
 /*!40000 ALTER TABLE `NewsType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +181,7 @@ CREATE TABLE `Person` (
   PRIMARY KEY (`p_id`),
   KEY `p_role_id` (`p_role_id`),
   CONSTRAINT `Person_ibfk_1` FOREIGN KEY (`p_role_id`) REFERENCES `Role` (`r_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +190,7 @@ CREATE TABLE `Person` (
 
 LOCK TABLES `Person` WRITE;
 /*!40000 ALTER TABLE `Person` DISABLE KEYS */;
-INSERT INTO `Person` VALUES (2,'fjw',12,'male','2824908821@qq.com','1212313',2,'2018-10-31 17:39:30','hit the send button to get a response.');
+INSERT INTO `Person` VALUES (2,'007',12,'male','2824908821@qq.com','1212313',1,'2018-10-31 17:39:30','hit the send button to get a response.'),(3,'多个多个',23,'male','994831361@qq.com','8769asdfasd',4,'2018-11-01 17:25:06',''),(4,'003',NULL,'','994831363@qq.com','qweasd',4,'2018-11-02 16:33:50',''),(5,'水电费',NULL,'','764699107@qq.com','123',4,'2018-11-02 17:38:54',''),(10,'qing',NULL,'','1902408716@qq.com','123',4,'2018-11-04 00:21:26',''),(11,'qing23',NULL,'','234234@qq.com','123',4,'2018-11-04 08:40:50',''),(12,'qing232',NULL,'','23423423@qq.com','123123',4,'2018-11-04 08:43:09',''),(25,'SDFSDFSDF',NULL,'','93432123@qq.com','123',4,'2018-11-04 10:54:53',''),(26,'1234234',NULL,'','29834634@qq.com','qwe',4,'2018-11-04 23:06:25',''),(27,'wer',NULL,'','995831263@qq.com','qwe',4,'2018-11-05 12:38:56','');
 /*!40000 ALTER TABLE `Person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +231,7 @@ CREATE TABLE `Role` (
   `r_id` int(11) NOT NULL AUTO_INCREMENT,
   `r_type` varchar(20) NOT NULL,
   PRIMARY KEY (`r_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +240,7 @@ CREATE TABLE `Role` (
 
 LOCK TABLES `Role` WRITE;
 /*!40000 ALTER TABLE `Role` DISABLE KEYS */;
-INSERT INTO `Role` VALUES (1,'super'),(2,'manager'),(3,'teacher');
+INSERT INTO `Role` VALUES (1,'super'),(2,'manager'),(3,'teacher'),(4,'normal');
 /*!40000 ALTER TABLE `Role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,4 +276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-31 19:50:20
+-- Dump completed on 2018-11-08 11:15:02

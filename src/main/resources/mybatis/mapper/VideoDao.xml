@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.TS.dao.VideoDao">
+    <resultMap id="videoMap" type="Video">
+        <id column="v_id" property="id"/>
+        <result column="v_href" property="href"/>
+    </resultMap>
+
+    <select id="getById" resultMap="videoMap">
+        select * from Video where v_id = #{id}
+    </select>
+
+    <select id="getByHref" resultMap="videoMap">
+        select * from Video where v_href = #{href}
+    </select>
+
+    <insert id="insert">
+        insert into Video (v_href) values (#{href})
+    </insert>
+
+    <update id="update">
+        update Video set
+        v_href = #{href}
+        where v_id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from Video where v_id = #{id}
+    </delete>
+
+    <select id="isHrefExist" resultType="Boolean">
+         select
+        case when count(*) = 0
+        then 0 else 1 end
+        from Video
+        where v_href=#{href}
+    </select>
+
+    <select id="getVideos" resultMap="videoMap">
+        select * from Video limit #{offset}, #{size};
+    </select>
+
+</mapper>
