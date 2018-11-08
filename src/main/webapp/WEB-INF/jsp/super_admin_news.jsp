@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: 杨港港
+  Date: 2018/11/7
+  Time: 13:27
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<!DOCTYPE html>--%>
 <html lang="en">
 <head>
     <title>Super Administrator</title>
@@ -9,9 +17,7 @@
     <link rel="stylesheet" href="../css/super_admin.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/super_admin.js"></script>
 
 
     <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
@@ -166,9 +172,9 @@
         <div class="span9" id="content">
             <div class="row-fluid">
                 <!--<div class="alert alert-success">-->
-                    <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
-                    <!--<h4>Success</h4>-->
-                    <!--The operation completed successfully</div>-->
+                <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
+                <!--<h4>Success</h4>-->
+                <!--The operation completed successfully</div>-->
                 <div class="navbar " >
                     <div class="navbar-inner">
                         <ul class="breadcrumb">
@@ -189,11 +195,11 @@
                 <!-- table -->
                 <div class="table ">
                     <table style="table-layout:fixed" class="table  table-bordered table-hover table-striped">
-                        <caption><h2>用户管理</h2></caption>
+                        <caption><h2>新闻管理</h2></caption>
                         <thead>
                         <tr>
-                            <th>id</th>
-                            <th>昵称</th>
+                            <th>新闻id</th>
+                            <th>标题</th>
                             <th>内容</th>
                             <th>作者</th>
                             <th>发布时间</th>
@@ -212,7 +218,7 @@
                             <td>
                                 <div>
                                     <div style="float: left;"><button id="modification_news" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >修改</button></div>
-                                    <!-- 模态框（Modal） -->
+                                    <%--<!-- 模态框（Modal） -->TODO:模态框中进行信息管理，直接将数据加载，通过placeholder进行修改动作--%>
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 80%;left: 25%">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -225,28 +231,28 @@
                                                     </h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                   <table style="table-layout:fixed" class="table  table-bordered table-hover table-striped">
-                                                       <thead>
-                                                       <tr>
-                                                           <th>新闻id</th>
-                                                           <th>标题</th>
-                                                           <th>内容</th>
-                                                           <th>作者</th>
-                                                           <th>发布时间</th>
-                                                           <th>评论</th>
-                                                       </tr>
-                                                       </thead>
-                                                       <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                       </tbody>
-                                                   </table>
+                                                    <table style="table-layout:fixed" class="table  table-bordered table-hover table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>新闻id</th>
+                                                            <th>标题</th>
+                                                            <th>内容</th>
+                                                            <th>作者</th>
+                                                            <th>发布时间</th>
+                                                            <th>评论</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -266,6 +272,7 @@
 
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
 
