@@ -1,83 +1,53 @@
 package com.hk.TS.pojo;
 
+import lombok.Data;
+
 import java.sql.Timestamp;
 
+@Data
 public class News {
-    private long id;
+    private Long id;
     private String title;
-    private long author_id;
+    private Long authorId;
     private String content;
-    private Timestamp create_time;
-    private long type_id;
-    private long click_count;
+    private Timestamp createTime;
+    private Long newsTypeId;
+    private Long clickCount;
 
-    @Override
-    public String toString() {
-        return "News{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author_id=" + author_id +
-                ", content='" + content + '\'' +
-                ", create_time=" + create_time +
-                ", type_id=" + type_id +
-                ", click_count=" + click_count +
-                '}';
+    public News() {
+
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
+    public News(Long id, String title, Long authorId, String content, Timestamp createTime, Long newsTypeId, Long clickCount) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
+        this.authorId = authorId;
+        this.content = content;
+        this.createTime = createTime;
+        this.newsTypeId = newsTypeId;
+        this.clickCount = clickCount;
     }
 
-    public long getAuthor_id() {
-        return author_id;
+    public News(String title, Long authorId, String content, Timestamp createTime, Long newsTypeId, Long clickCount) {
+        this.title = title;
+        this.authorId = authorId;
+        this.content = content;
+        this.createTime = createTime;
+        this.newsTypeId = newsTypeId;
+        this.clickCount = clickCount;
     }
 
-    public void setAuthor_id(long author_id) {
-        this.author_id = author_id;
+    public News(String title, Long authorId, String content, Long newsTypeId) {
+        this.title = title;
+        this.authorId = authorId;
+        this.content = content;
+        this.createTime = new Timestamp(System.currentTimeMillis());
+        this.newsTypeId = newsTypeId;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
+    public News(String title, Long authorId, String content) {
+        this.title = title;
+        this.authorId = authorId;
         this.content = content;
     }
-
-    public Timestamp getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(Timestamp create_time) {
-        this.create_time = create_time;
-    }
-
-    public long getType_id() {
-        return type_id;
-    }
-
-    public void setType_id(long type_id) {
-        this.type_id = type_id;
-    }
-
-    public long getClick_count() {
-        return click_count;
-    }
-
-    public void setClick_count(long click_count) {
-        this.click_count = click_count;
-    }
-
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.TS.dao.NewsDao">
+    <resultMap id="newsMap" type="News">
+        <id column="news_id" property="id"/>
+        <result column="news_title" property="title"/>
+        <result column="news_author_id" property="authorId"/>
+        <result column="news_content" property="content"/>
+        <result column="news_create_time" property="createTime"/>
+        <result column="news_type_id" property="newsTypeId"/>
+        <result column="news_click_count" property="clickCount"/>
+    </resultMap>
+
+    <select id="getByTitle" resultMap="newsMap">
+        select * from News where news_title = #{title}
+    </select>
+
+    <select id="getById" resultMap="newsMap">
+        select * from News where news_id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from News
+        where news_id = #{id}
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into News (news_title, news_author_id, news_content, news_type_id, news_click_count)
+        values (#{title}, #{authorId}, #{content}, #{newsTypeId}, #{clickCount})
+    </insert>
+
+    <select id="isTitleExist" resultType="Boolean">
+        select
+        case when count(*) = 0
+        then 0 else 1 end
+        from News
+        where news_title=#{title}
+    </select>
+
+    <select id="getNewsByAuthorId" resultMap="newsMap">
+        select * from News where news_author_id = #{authorId}
+    </select>
+
+    <select id="getNews" resultMap="newsMap">
+        select * from News limit #{offset}, #{size}
+    </select>
+
+    <update id="update">
+        update News
+        <set>
+            <if test="title != null">news_title = #{title},</if>
+            <if test="authorId != null">news_author_id = #{authorId},</if>
+            <if test="createTime != null">news_create_time = #{createTime},</if>
+            <if test="clickCount != null">news_click_count = #{clickCount},</if>
+            <if test="content != null">news_content = #{content},</if>
+            <if test="newsTypeId != null">news_type_id = #{newsTypeId}</if>
+        </set>
+        where news_id = #{id}
+    </update>
+
+</mapper>

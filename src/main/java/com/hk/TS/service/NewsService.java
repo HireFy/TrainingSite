@@ -1,11 +1,11 @@
-package com.hk.TS.dao;
+package com.hk.TS.service;
 
 import com.hk.TS.pojo.News;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface NewsDao {
+public interface NewsService {
     News getByTitle(String title);
 
     News getById(Long id);
@@ -18,8 +18,8 @@ public interface NewsDao {
 
     Boolean isTitleExist(String title);
 
-    /*todo 要有个分页*/
+    /*todo 要有个分页 前期不考虑*/
     List<News> getNewsByAuthorId(Long authorId);
 
-    List<News> getNews(@Param("offset") int offset, @Param("size") int size);
+    List<News> getNews(int pageNum, int pageSize);
 }

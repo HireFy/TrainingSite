@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.TS.dao.NewsTypeDao">
+    <resultMap id="newsTypeMap" type="NewsType">
+        <id column="news_type_id" property="id"/>
+        <result column="news_type_name" property="name"/>
+        <result column="news_type_father_id" property="fatherId"/>
+    </resultMap>
+
+    <select id="getById" resultMap="newsTypeMap">
+        select * from NewsType where news_type_id=#{id};
+    </select>
+
+    <select id="getByTypeName" resultMap="newsTypeMap">
+        select * from NewsType where news_type_name = #{name}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into NewsType (news_type_name, news_type_father_id) values
+        (#{name}, #{fatherId})
+    </insert>
+
+    <delete id="deleteById">
+        delete from NewsType where news_type_id = #{id}
+    </delete>
+
+    <select id="getNewsTypes" resultMap="newsTypeMap">
+        select * from NewsType limit #{offset}, #{size};
+    </select>
+
+    <select id="isTypeNameExist" resultType="Boolean">
+         select
+        case when count(*) = 0
+        then 0 else 1 end
+        from NewsType
+        where news_type_name=#{name}
+    </select>
+
+    <update id="update">
+        update NewsType
+        <set>
+            <if test="name != null">
+                news_type_name = #{name},
+            </if>
+            <if test="fatherId != null">
+                news_type_father_id = #{fatherId},
+            </if>
+        </set>
+    </update>
+
+</mapper>
