@@ -52,7 +52,4 @@ public class UserController {
     public String updatePass() {
         return "updatePass";
     }
-
-    @RequestMapping("/super_admin_news")
-    public  String super_admin_news(){return "super_admin_news";}
 }
