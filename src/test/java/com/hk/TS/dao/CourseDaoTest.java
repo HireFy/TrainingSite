@@ -1,27 +1,46 @@
 package com.hk.TS.dao;
 
 import com.hk.TS.pojo.Course;
-import com.hk.TS.service.CourseService;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
 public class CourseDaoTest {
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-mybatis.xml");
-        CourseService service = (CourseService) ctx.getBean("courseService");
 
-//        Course course = new Course("Mysql", (long)1, null, 200, "", (long)5);
-//
-//        System.out.println(service.insert(course));
+    @Autowired
+    private CourseDao courseDao;
 
-        System.out.println(service.getCourses(1, 5));
-
-//        Course course = new Course((long) 2, "MySQL", (long)1, null, 200, null, (long)3);
-//        System.out.println(service.update(course));
+    @Test
+    public void getById() {
+        System.out.println(courseDao.getById((long) 2));
     }
 
+    @Test
+    public void insert() {
+    }
+
+    @Test
+    public void deleteById() {
+    }
+
+    @Test
+    public void update() {
+        Course course = new Course();
+        course.setId((long) 2);
+        course.setInfo("Aut eum porro dolor quidem a");
+        System.out.println(courseDao.update(course));
+    }
+
+    @Test
+    public void isNameExist() {
+    }
+
+    @Test
+    public void getCourses() {
+    }
 }

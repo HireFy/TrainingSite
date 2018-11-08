@@ -12,7 +12,7 @@ public interface MessageService {
 
     Boolean deleteById(Long id);
 
-    Boolean updateById(Map<String, Object> maps);
+    Boolean update(Message message);
 
-    List<Message> getAllMessages();
+    List<Message> getMessages(int pageNum, int pageSize);
 }

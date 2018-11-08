@@ -26,13 +26,15 @@
     </delete>
 
     <update id="update">
-        update Course set
-        course_name=#{name},
-        course_type_id=#{courseTypeId},
-        price=#{price},
-        course_info=#{info},
-        course_cover_id=#{coverPicId},
-        course_teacher_id=#{teacherId}
+        update Course
+        <set>
+            <if test="name != null">course_name=#{name},</if>
+            <if test="courseTypeId != null">course_type_id=#{courseTypeId},</if>
+            <if test="price">price=#{price},</if>
+            <if test="info">course_info=#{info},</if>
+            <if test="coverPicId">course_cover_id=#{coverPicId},</if>
+            <if test="teacherId">course_teacher_id=#{teacherId}</if>
+        </set>
         where Course.course_id=#{id}
     </update>
 

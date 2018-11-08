@@ -5,21 +5,21 @@
     <resultMap id="messageResultMap" type="Message">
         <id property="id" column="message_id"/>
         <result property="content" column="message_content"/>
-        <result property="mail" column="message_author_mail_id"/>
+        <result property="mail" column="message_author_mail"/>
         <result property="createTime" column="message_create_time"/>
-        <result property="targetId" column="message_target_id"/>
+        <result property="targetMessageId" column="message_target_id"/>
     </resultMap>
 
     <select id="getById" resultMap="messageResultMap">
-        select Message.*
+        select *
         from Message
         where message_id = #{id}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into Message (message_content, message_author_mail_id,message_target_id)
+        insert into Message (message_content, message_author_mail,message_target_id)
         values
-        (#{content}, #{mail}, #{targetId})
+        (#{content}, #{mail}, #{targetMessageId})
     </insert>
 
     <delete id="deleteById">
@@ -27,14 +27,16 @@
     </delete>
 
     <update id="update">
-        update Message set
-        message_content=#{content},
-        message_author_mail_id=#{mail},
-        message_target_id=#{targetId},
+        update Message
+        <set>
+            <if test="content != null">message_content=#{content},</if>
+            <if test="mail != null">message_author_mail=#{mail},</if>
+            <if test="targetMessageId">message_target_id=#{targetMessageId}</if>
+        </set>
         where message_id=#{id}
     </update>
 
-    <select id="getAllMessages" resultMap="messageResultMap">
-        select Message.* from Message
+    <select id="getMessages" resultMap="messageResultMap">
+        select * from Message limit #{offset}, #{size}
     </select>
 </mapper>
