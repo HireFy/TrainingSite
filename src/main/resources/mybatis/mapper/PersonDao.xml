@@ -62,7 +62,7 @@
     </update>
 
     <select id="getPersons" resultMap="personResultMap">
-        select * from Person where limit #{offset}, #{pageSize}
+        select * from Person limit #{offset}, #{pageSize}
     </select>
 
     <select id="getByMail" resultMap="personResultMap">
