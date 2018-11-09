@@ -91,7 +91,7 @@ function isMailExist(mail, mail_box, button, reverse = false) {
 }
 
 
-/*TODO 验证码设置生命周期，一定时间后失效，当*/
+/*TODO 验证码设置生命周期，一定时间后失效*/
 
 /*发送验证码*/
 function sendVerifyNum(mail_val) {

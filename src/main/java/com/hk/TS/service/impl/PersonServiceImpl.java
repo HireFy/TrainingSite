@@ -19,6 +19,8 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonDao personDao;
 
+    private static int pageSize = 5;
+
     @Override
     public Boolean deleteById(Long id) {
         return personDao.deleteById(id);
@@ -132,8 +134,6 @@ public class PersonServiceImpl implements PersonService {
         return personDao.isNameExist(name);
     }
 
-
-
     public Boolean isMailExist(String mail) {
         return personDao.isMailExist(mail);
     }
@@ -174,21 +174,41 @@ public class PersonServiceImpl implements PersonService {
     public ModelAndView byPassView(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         /*填充数据*/
-        List<Person> personList = personDao.getPersons(1, 5);
+        List<Person> personList = this.getPersons(1);
         mav.addObject("personList", personList);
         /*等待前端*/
+        int pageCount = this.getPageCount();
+        mav.addObject("pageCount", pageCount);
+        mav.addObject("crtPage", 1);
 
         /*设置view*/
         Long roleid = (Long) session.getAttribute("roleid");
         if (roleid != null) {
             if (roleid == 1) {
-                mav.setViewName("super_admin");
+                mav.setViewName("superAdminBoot");
             }
             if (roleid == 2) {
-                mav.setViewName("super_admin");
+                mav.setViewName("superAdminBoot");
             }
         }else
             mav.setViewName("user");
         return mav;
+    }
+
+    public List<Person> getPersons(int pageNum) {
+        return personDao.getPersons((pageNum - 1) * pageSize, pageSize);
+    }
+
+    public int getPageCount(int pageSize){
+        int totalCount = personDao.getTotalCount();
+        int pageCount = totalCount / pageSize;
+        if (totalCount % 5 != 0) {
+            pageCount += 1;
+        }
+        return pageCount;
+    }
+
+    public int getPageCount() {
+        return this.getPageCount(pageSize);
     }
 }

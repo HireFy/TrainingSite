@@ -24,5 +24,7 @@ public interface PersonDao {
 
     Boolean isMailExist(String mail);
 
+    Integer getTotalCount();
+
     List<Person> getPersons(@Param("offset") int offset, @Param("pageSize") int pageSize);
 }

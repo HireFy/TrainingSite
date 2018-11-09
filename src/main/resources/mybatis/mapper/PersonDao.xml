@@ -88,4 +88,8 @@
         from Person
         where p_mail=#{mail}
     </select>
+
+    <select id="getTotalCount" resultType="Integer">
+       select count(*) from Person;
+    </select>
 </mapper>
