@@ -3,6 +3,8 @@ package com.hk.TS.service.impl;
 import com.hk.TS.dao.PersonDao;
 import com.hk.TS.pojo.Person;
 import com.hk.TS.service.PersonService;
+import com.hk.TS.util.CommonUtils;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +21,7 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonDao personDao;
 
-    private static int pageSize = 5;
+    private static int pageSize = 10;
 
     @Override
     public Boolean deleteById(Long id) {
@@ -52,9 +54,12 @@ public class PersonServiceImpl implements PersonService {
 //                修改age数据类型
                 case "age": {
                     try {
-                        person.setAge(Integer.valueOf((String) entry.getValue()));
+                        int age = Integer.valueOf((String) entry.getValue());
+                        person.setAge(age);
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
+                        break;
+                    }finally {
                         break;
                     }
                 }
@@ -70,7 +75,7 @@ public class PersonServiceImpl implements PersonService {
                     person.setMail((String) entry.getValue());
                     break;
                 }
-                case "role": {
+                case "roleId": {
                     person.setRoleId(Long.valueOf((String) entry.getValue()));
                     break;
                 }
@@ -111,6 +116,8 @@ public class PersonServiceImpl implements PersonService {
     /*TODO 更新信息的操作是否改为用person对象，restapi那只返回更新操作的成功或失败*/
     /*更新用户*/
     public Boolean updateWithSession(Map<String, Object> map, HttpSession session) {
+        map = new CommonUtils().cleanEmptyValue(map);
+
         Person person = new Person();
         Boolean flag = false;
         String name = (String) session.getAttribute("name");
@@ -210,5 +217,15 @@ public class PersonServiceImpl implements PersonService {
 
     public int getPageCount() {
         return this.getPageCount(pageSize);
+    }
+
+    public Boolean updateWithId(Map<String, Object> map) {
+        map = new CommonUtils().cleanEmptyValue(map);
+
+        Long id = Long.valueOf((String) map.get("id"));
+
+        Person person = personDao.getById(id);
+
+        return this.update(person, map);
     }
 }

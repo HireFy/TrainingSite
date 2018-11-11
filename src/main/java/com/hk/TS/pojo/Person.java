@@ -64,4 +64,12 @@ public class Person {
         this.roleId = roleId;
         this.info = info;
     }
+
+    public void setAge(Integer age) {
+        if (age > 200 || age < 0) {
+            this.age = null;
+        } else {
+            this.age = age;
+        }
+    }
 }

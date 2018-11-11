@@ -21,7 +21,8 @@
 <body>
 <h1>用户管理</h1>
 <!-- Modal 删除-->
-<div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,13 +42,35 @@
     </div>
 </div>
 
+<!-- Modal 修改成功-->
+<div class="modal fade" id="successModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalCenterTitle">修改成功</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                数据已更新
+            </div>
+            <div class="modal-footer">
+                <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
+                <button type="button" class="btn btn-success" data-dismiss="modal">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal 修改信息-->
 <div class="modal fade" id="ModalCenterModify" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">ID 5</h5>
+                <h5 class="modal-title" id="modifyModalCenterTitle"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -57,25 +80,31 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputName" placeholder="Name">
+                            <input type="text" class="form-control" id="inputName">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Age</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputAge" placeholder="Age">
+                            <input type="text" class="form-control" id="inputAge">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputMail" placeholder="Email">
+                            <input type="text" class="form-control" id="inputMail">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Role</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputRoleId" placeholder="Role ID">
+                            <select class="custom-select my-1 mr-sm-2 is-valid" id="roleSelect">
+                                <option selected>role....</option>
+                                <option value="1">Super</option>
+                                <option value="2">manager</option>
+                                <option value="3">teacher</option>
+                                <option value="4">normal</option>
+                            </select>
                         </div>
                     </div>
                     <fieldset class="form-group">
@@ -83,23 +112,23 @@
                             <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                             <div class="col-sm-10">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
-                                           value="option1" checked>
-                                    <label class="form-check-label" for="gridRadios1">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadiosMale"
+                                           value="option1">
+                                    <label class="form-check-label">
                                         男
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadiosFemale"
                                            value="option2">
-                                    <label class="form-check-label" for="gridRadios2">
+                                    <label class="form-check-label">
                                         女
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadiosSecret"
                                            value="option3">
-                                    <label class="form-check-label" for="gridRadios3">
+                                    <label class="form-check-label">
                                         保密
                                     </label>
                                 </div>
@@ -124,13 +153,16 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Info</span>
                         </div>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                        <textarea class="form-control" aria-label="With textarea" id="info"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="col-sm-8">
+                    <p class="text-success invisible" id="p_footer_box"></p>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" name="close">Close</button>
+                <button type="button" class="btn btn-primary" name="save">Save changes</button>
             </div>
         </div>
     </div>
@@ -165,10 +197,10 @@
             <td>${person.createTime}</td>
             <td>${person.info}</td>
             <td>
-                <button id="btn-modify" type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                <button name="btn-modify" type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                         data-target="#ModalCenterModify">更新
                 </button>
-                <button id="btn-delete" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                <button name="btn-delete" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                         data-target="#deleteModalCenter">删除
                 </button>
             </td>
@@ -195,14 +227,14 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="${basePath}/js/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+<script src="${basePath}/js/service/common.js"></script>
+<script src="${basePath}/js/service/superAdmintBoot.js"></script>
 </body>
 </html>

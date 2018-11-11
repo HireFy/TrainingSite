@@ -43,9 +43,6 @@ public class UserController {
     /*分页*/
     @RequestMapping("/user/{crtPage}")
     public ModelAndView userPagenation(@PathVariable int crtPage) {
-
-        logger.info("crtPage: " + crtPage);
-
         ModelAndView mav = new ModelAndView("superAdminBoot");
         List<Person> personList = personService.getPersons(crtPage);
         mav.addObject("personList", personList);
