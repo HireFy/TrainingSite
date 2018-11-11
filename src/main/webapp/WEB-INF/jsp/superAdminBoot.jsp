@@ -64,6 +64,28 @@
     </div>
 </div>
 
+<!-- Modal 修改失败-->
+<div class="modal fade" id="failModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="failModalCenterTitle">修改失败</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                修改操作失败！请重试
+            </div>
+            <div class="modal-footer">
+                <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal 修改信息-->
 <div class="modal fade" id="ModalCenterModify" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">

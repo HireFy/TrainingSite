@@ -128,6 +128,8 @@ btnSave.click(function () {
             p_footer_box.removeClass()
             p_footer_box.addClass("text-danger")
             p_footer_box.text("修改失败")
+            $("#ModalCenterModify").modal("hide")
+            $("#failModalCenter").modal("show")
         },
         success: function (data) {
             p_footer_box.removeClass()
