@@ -1,6 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName()
@@ -207,17 +207,17 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${personList}" var="person">
+    <c:forEach items="${personList}" var="news">
         <tr>
-            <td>${person.id}</td>
-            <td>${person.name}</td>
-            <td>${person.age}</td>
-            <td>${person.gender}</td>
-            <td>${person.password}</td>
-            <td>${person.mail}</td>
-            <td>${person.roleId}</td>
-            <td>${person.createTime}</td>
-            <td>${person.info}</td>
+            <td>${news.id}</td>
+            <td>${news.name}</td>
+            <td>${news.age}</td>
+            <td>${news.gender}</td>
+            <td>${news.password}</td>
+            <td>${news.mail}</td>
+            <td>${news.roleId}</td>
+            <td>${news.createTime}</td>
+            <td>${news.info}</td>
             <td>
                 <button name="btn-modify" type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                         data-target="#ModalCenterModify">更新

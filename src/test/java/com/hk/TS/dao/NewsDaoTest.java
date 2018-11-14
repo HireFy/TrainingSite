@@ -67,4 +67,9 @@ public class NewsDaoTest {
     public void h_deleteById() {
         assertEquals(true, newsDao.deleteById(id));
     }
+
+    @Test
+    public void getTotalCount(){
+        System.out.println(newsDao.getTotalCount());
+    }
 }

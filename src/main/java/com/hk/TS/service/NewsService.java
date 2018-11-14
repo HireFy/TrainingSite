@@ -26,4 +26,8 @@ public interface NewsService {
     List<News> getNewsByAuthorId(Long authorId);
 
     List<News> getNews(int pageNum, int pageSize);
+
+    List<News> getNews(int pageNum);
+
+    int getPageCount();
 }

@@ -59,4 +59,8 @@
         where news_id = #{id}
     </update>
 
+    <select id="getTotalCount" resultType="Integer">
+        select count(*) from News
+    </select>
+
 </mapper>

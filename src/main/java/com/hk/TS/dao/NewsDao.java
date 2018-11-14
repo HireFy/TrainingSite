@@ -22,4 +22,6 @@ public interface NewsDao {
     List<News> getNewsByAuthorId(Long authorId);
 
     List<News> getNews(@Param("offset") int offset, @Param("size") int size);
+
+    int getTotalCount();
 }

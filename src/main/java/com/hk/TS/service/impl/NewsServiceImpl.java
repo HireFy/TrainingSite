@@ -4,6 +4,7 @@ import com.hk.TS.dao.NewsDao;
 import com.hk.TS.pojo.News;
 import com.hk.TS.service.NewsService;
 import com.hk.TS.service.PersonService;
+import com.hk.TS.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private PersonService personService;
+
+    private static int pageSize = 10;
 
     @Override
     public News getByTitle(String title) {
@@ -58,6 +61,16 @@ public class NewsServiceImpl implements NewsService {
     public List<News> getNews(int pageNum, int pageSize) {
         return newsDao.getNews((pageNum - 1) * pageSize, pageSize);
     }
+
+    public List<News> getNews(int pageNum) {
+        return this.getNews(pageNum, pageSize);
+    }
+
+    @Override
+    public int getPageCount() {
+        return CommonUtils.getPageCount(newsDao.getTotalCount(), pageSize);
+    }
+
 
     public Boolean save(News news, HttpSession session) {
         if (news.getCreateTime() == null) {
