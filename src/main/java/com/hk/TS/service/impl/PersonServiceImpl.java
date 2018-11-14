@@ -4,7 +4,6 @@ import com.hk.TS.dao.PersonDao;
 import com.hk.TS.pojo.Person;
 import com.hk.TS.service.PersonService;
 import com.hk.TS.util.CommonUtils;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -192,7 +191,7 @@ public class PersonServiceImpl implements PersonService {
         Long roleid = (Long) session.getAttribute("roleid");
         if (roleid != null) {
             if (roleid == 1) {
-                mav.setViewName("superAdminBoot");
+                mav.setViewName("superCentral");
             }
             if (roleid == 2) {
                 mav.setViewName("superAdminBoot");
@@ -206,18 +205,7 @@ public class PersonServiceImpl implements PersonService {
         return personDao.getPersons((pageNum - 1) * pageSize, pageSize);
     }
 
-    public int getPageCount(int pageSize){
-        int totalCount = personDao.getTotalCount();
-        int pageCount = totalCount / pageSize;
-        if (totalCount % 5 != 0) {
-            pageCount += 1;
-        }
-        return pageCount;
-    }
 
-    public int getPageCount() {
-        return this.getPageCount(pageSize);
-    }
 
     public Boolean updateWithId(Map<String, Object> map) {
         map = new CommonUtils().cleanEmptyValue(map);
@@ -227,5 +215,9 @@ public class PersonServiceImpl implements PersonService {
         Person person = personDao.getById(id);
 
         return this.update(person, map);
+    }
+
+    public int getPageCount() {
+        return CommonUtils.getPageCount(personDao.getTotalCount(), pageSize);
     }
 }

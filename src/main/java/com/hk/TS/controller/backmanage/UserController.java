@@ -1,6 +1,7 @@
 package com.hk.TS.controller.backmanage;
 
 import com.hk.TS.pojo.Person;
+import com.hk.TS.service.PersonService;
 import com.hk.TS.service.impl.PersonServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +22,7 @@ public class UserController {
     private static Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
-    private PersonServiceImpl personService;
+    private PersonService personService;
 
     @RequestMapping("/login")
     public String login() {

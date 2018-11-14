@@ -1,7 +1,9 @@
 package com.hk.TS.service;
 
 import com.hk.TS.pojo.Person;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -23,4 +25,10 @@ public interface PersonService {
     Person getByName(String name);
 
     List<Person> getPersons(int pageNum, int pageSize);
+
+    ModelAndView byPassView(HttpSession session);
+
+    int getPageCount();
+
+    List<Person> getPersons(int pageNum);
 }

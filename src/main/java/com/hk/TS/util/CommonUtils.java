@@ -24,4 +24,13 @@ public class CommonUtils {
 
         return cleanedMap;
     }
+
+    public static int getPageCount(int totalCount, int pageSize){
+        int pageCount = totalCount / pageSize;
+        if (totalCount % pageSize != 0) {
+            pageCount += 1;
+        }
+        return pageCount;
+    }
+
 }
