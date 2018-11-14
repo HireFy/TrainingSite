@@ -35,7 +35,7 @@ public class CourseController {
     public List<Course> getAll() {
         return courseService.getCourses(1, Integer.MAX_VALUE);
     }
-
+//    Integer.MAX_VALUE
     @PostMapping("/update")
     public Boolean updatePerson(@RequestBody Course course) {
         return courseService.update(course);
@@ -44,5 +44,10 @@ public class CourseController {
     @PostMapping("/name/exist")
     public Boolean isNameExist(@RequestBody String name) {
         return courseService.isNameExist(name);
+    }
+
+    @GetMapping("/page/{pageNum}")
+    public List<Course> getCourses(@PathVariable int pageNum) {
+        return courseService.getCourses(pageNum, 2);
     }
 }

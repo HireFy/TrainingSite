@@ -1,0 +1,147 @@
+[33mcommit 2661b8f72a58db5838809259b435419b7ad54c43[m[33m ([m[1;36mHEAD -> [m[1;32mwyb[m[33m, [m[1;32mwyb1[m[33m)[m
+Author: wangyb <764699107@qq.com>
+Date:   Wed Nov 7 12:07:53 2018 +0800
+
+    新闻栏目页面，新闻文章页面
+
+[33mcommit 8fdf5c1011adf910a46e664c511a05d52d82266d[m[33m ([m[1;31morigin/wyb[m[33m)[m
+Author: wangyb <764699107@qq.com>
+Date:   Mon Nov 5 17:10:29 2018 +0800
+
+    course表的service
+
+[33mcommit 6973507e5aeb9880dd5df62e53cb6773255da6cb[m[33m ([m[1;31mupstream/master[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: 8b8f9cf 5ac04e8
+Author: 764699107 <44190264+764699107@users.noreply.github.com>
+Date:   Fri Nov 2 15:51:53 2018 +0800
+
+    Merge pull request #4 from HireFy/master
+    
+    注册，修改页面
+
+[33mcommit 5ac04e893f8c7fb4b1ba131aa4ed60e20bcb04fa[m
+Author: HireFy <994831363@qq.com>
+Date:   Thu Nov 1 15:40:55 2018 +0800
+
+    static静态资源
+
+[33mcommit 11ccca7ff15392743fb6a74e954c250dcfe40b00[m
+Author: HireFy <994831363@qq.com>
+Date:   Wed Oct 31 23:38:24 2018 +0800
+
+    邮箱验证码发送验证功能
+
+[33mcommit 8b8f9cf08db55da63ccdd72c12abf306304f3501[m
+Merge: 600363b d8dd084
+Author: 764699107 <44190264+764699107@users.noreply.github.com>
+Date:   Wed Oct 31 21:17:59 2018 +0800
+
+    Merge pull request #3 from HireFy/master
+    
+    添加Person基本操作，写了部分restApi接口，添加了Person表中p_mail字段
+
+[33mcommit d8dd084efff3be814f700c803cb7aa33161a41b7[m
+Author: HireFy <994831363@qq.com>
+Date:   Wed Oct 31 20:02:11 2018 +0800
+
+    添加Person基本操作，写了部分restApi接口，添加了Person表中p_mail字段
+
+[33mcommit 600363b8119be8c90c9c176a22c755fc77ba3ea6[m
+Merge: 78b8b49 5df0800
+Author: 764699107 <44190264+764699107@users.noreply.github.com>
+Date:   Thu Oct 25 17:53:46 2018 +0800
+
+    Merge pull request #2 from HireFy/master
+    
+    update
+
+[33mcommit 5df08003deabdd8a6a4f192a33452ce8f3e702c1[m
+Author: HireFy <994831363@qq.com>
+Date:   Thu Oct 25 16:52:38 2018 +0800
+
+    添加了course表的course_cover_id字段
+
+[33mcommit b3222c370a1325a9195c14b9383193e6bc0fb0e9[m
+Author: HireFy <994831363@qq.com>
+Date:   Wed Oct 24 17:37:38 2018 +0800
+
+    修改数据库设计.txt
+
+[33mcommit 1528c8d6cffc64885e7a27ef18f8d858e9b398e9[m
+Author: HireFy <994831363@qq.com>
+Date:   Wed Oct 24 16:54:02 2018 +0800
+
+    更新数据库设计
+
+[33mcommit ced5a2f796945b285d62d5eb0e9afbcd67484ded[m
+Author: HireFy <994831363@qq.com>
+Date:   Wed Oct 24 15:28:40 2018 +0800
+
+    修改数据库设计
+
+[33mcommit 78b8b498ffdb9630e8d1d7bf80ae63151497daef[m
+Merge: 9b5048e 4e631ec
+Author: 764699107 <44190264+764699107@users.noreply.github.com>
+Date:   Mon Oct 22 23:02:01 2018 +0800
+
+    Merge pull request #1 from HireFy/master
+    
+    update
+
+[33mcommit 4e631ec0e9bdf62f4aa568e04703bbbe3292d2ef[m
+Author: HireFy <994831363@qq.com>
+Date:   Mon Oct 22 21:41:33 2018 +0800
+
+    创建数据库
+
+[33mcommit 898411668def03eb796326821bd13b4113f54bcb[m
+Author: HireFy <994831363@qq.com>
+Date:   Mon Oct 22 15:08:21 2018 +0800
+
+    添加前端模板
+
+[33mcommit c7daf6cfa63a6d1cb35e2d5045e98df7dbe34231[m
+Merge: 4962d58 80d159c
+Author: HireFy <994831363@qq.com>
+Date:   Mon Oct 22 14:31:53 2018 +0800
+
+    Merge branch 'master' of github.com:HireFy/TrainingSite
+
+[33mcommit 4962d58c94fd2b3f488afc3f7045cefe80b14589[m
+Author: HireFy <994831363@qq.com>
+Date:   Mon Oct 22 14:28:34 2018 +0800
+
+    添加springmvc
+
+[33mcommit 80d159c9de0477b1af4eaa2c434812e1a6aee7ff[m
+Merge: 7c47289 9b5048e
+Author: HireFy <30411866+HireFy@users.noreply.github.com>
+Date:   Thu Oct 18 14:52:47 2018 +0800
+
+    Merge pull request #1 from 764699107/master
+    
+    前端页面
+
+[33mcommit 9b5048eb3d04ca72744b3d4cb86573566015e852[m
+Author: wangyb <764699107@qq.com>
+Date:   Thu Oct 18 14:50:02 2018 +0800
+
+    前端页面
+
+[33mcommit 7c47289a6e9438fbe05c1a66280ca080772161e1[m
+Author: HireFy <994831363@qq.com>
+Date:   Wed Oct 17 19:20:59 2018 +0800
+
+    mybatis整合测试
+
+[33mcommit 113d7e4fd2df842090615119a21a6d6c65c403d9[m
+Author: HireFy <994831363@qq.com>
+Date:   Tue Oct 16 14:42:23 2018 +0800
+
+    init commit
+
+[33mcommit 9ba51a3deec912c96391bf7f3ac496cc0dd0fdfe[m
+Author: HireFy <994831363@qq.com>
+Date:   Tue Oct 16 14:41:52 2018 +0800
+
+    .gitignore

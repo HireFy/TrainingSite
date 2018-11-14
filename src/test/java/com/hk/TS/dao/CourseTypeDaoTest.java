@@ -26,8 +26,8 @@ public class CourseTypeDaoTest {
 //        CourseType courseType = new CourseType((long) 3, "前端");
 //        System.out.println(service.updateById(courseType));
 
-//        CourseType courseType = new CourseType("后端");
-//        System.out.println(service.insert(courseType));
+        CourseType courseType = new CourseType("后端");
+        System.out.println(service.insert(courseType));
 
         System.out.println(service.isNameExist("端"));
     }
