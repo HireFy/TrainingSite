@@ -20,5 +20,7 @@ public interface PersonService {
 
     Boolean isNameExist(String name);
 
+    Person getByName(String name);
+
     List<Person> getPersons(int pageNum, int pageSize);
 }

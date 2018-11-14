@@ -50,4 +50,12 @@ public class News {
         this.authorId = authorId;
         this.content = content;
     }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setCreateTime(long currentTimeMillis) {
+        this.setCreateTime(new Timestamp(currentTimeMillis));
+    }
 }

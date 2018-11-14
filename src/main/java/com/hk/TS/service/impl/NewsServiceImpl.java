@@ -3,9 +3,11 @@ package com.hk.TS.service.impl;
 import com.hk.TS.dao.NewsDao;
 import com.hk.TS.pojo.News;
 import com.hk.TS.service.NewsService;
+import com.hk.TS.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -13,6 +15,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsDao newsDao;
+
+    @Autowired
+    private PersonService personService;
 
     @Override
     public News getByTitle(String title) {
@@ -52,5 +57,20 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> getNews(int pageNum, int pageSize) {
         return newsDao.getNews((pageNum - 1) * pageSize, pageSize);
+    }
+
+    public Boolean save(News news, HttpSession session) {
+        if (news.getCreateTime() == null) {
+            news.setCreateTime(System.currentTimeMillis());
+        }
+        if (news.getAuthorId() == null) {
+//            news.setAuthorId(personService.getByName((String)session.getAttribute("name")).getId());
+            news.setAuthorId((long) 2);
+        }
+        if (news.getClickCount() == null) {
+            news.setClickCount((long) 0);
+        }
+
+        return newsDao.insert(news);
     }
 }
