@@ -1,6 +1,7 @@
 package com.hk.TS.service;
 
 import com.hk.TS.pojo.News;
+import com.hk.TS.vo.NewsVO;
 import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,4 +31,8 @@ public interface NewsService {
     List<News> getNews(int pageNum);
 
     int getPageCount();
+
+    List<NewsVO> transFormData(List<News> newsList);
+
+    NewsVO transFormData(News news);
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%
@@ -54,22 +55,42 @@
 
 
 <h3>文章编辑</h3>
+
+<%--如果news.id不为空，就不是第一次创建新闻,那就更新该新闻--%>
+<c:if test="${news.id != null}"><h3 id="newsId">News ID: ${news.id}</h3></c:if>
+
+<div style="font-size: 20pt">
+    <label for="textAuthor">作者</label>
+    <span id="textAuthor" style="border: 1px solid black">
+        <c:choose>
+            <c:when test="${news.authorName != null}">
+                ${news.authorName}
+            </c:when>
+            <c:otherwise>
+                ${sessionScope.get("username")}
+            </c:otherwise>
+        </c:choose>
+    </span>
+</div>
+
+
 <div class="form-group">
     <label for="newsTypeSelect">新闻类型</label>
     <select class="form-control" id="newsTypeSelect">
-        <option value="1">学员新闻</option>
-        <option value="2">培训新闻</option>
-        <option value="3">技术分享</option>
+        <option value="1" <c:if test="${news.newsTypeId == 1}">selected="selected"</c:if>>学员新闻</option>
+        <option value="2" <c:if test="${news.newsTypeId == 2}">selected="selected"</c:if>>培训新闻</option>
+        <option value="3" <c:if test="${news.newsTypeId == 3}">selected="selected"</c:if>>技术分享</option>
+        <option value="5" <c:if test="${news.newsTypeId == 5}">selected="selected"</c:if>>JAVA</option>
     </select>
 </div>
 
 <div style="font-size: 20pt">
     <label for="textTitle">新闻标题</label>
-    <p id="textTitle" style="border: 1px solid black"></p>
+    <p id="textTitle" style="border: 1px solid black">${news.title}</p>
 </div>
 
 <form action="${basePath}/news/save" method="post" id="text_form">
-    <textarea id="textarea" name="text"></textarea>
+    <textarea id="textarea" name="text">${news.content}</textarea>
 </form>
 <button type="button" id="btnSave">保存</button>
 
@@ -145,5 +166,6 @@
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script src="${basePath}/js/service/createNews.js"></script>
+<script src="${basePath}/js/service/editNews.js"></script>
 </body>
 </html>

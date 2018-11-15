@@ -5,11 +5,17 @@ import com.hk.TS.pojo.News;
 import com.hk.TS.service.NewsService;
 import com.hk.TS.service.PersonService;
 import com.hk.TS.util.CommonUtils;
+import com.hk.TS.vo.NewsVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -77,7 +83,6 @@ public class NewsServiceImpl implements NewsService {
             news.setCreateTime(System.currentTimeMillis());
         }
         if (news.getAuthorId() == null) {
-//            news.setAuthorId(personService.getByName((String)session.getAttribute("name")).getId());
             news.setAuthorId((long) 2);
         }
         if (news.getClickCount() == null) {
@@ -85,5 +90,33 @@ public class NewsServiceImpl implements NewsService {
         }
 
         return newsDao.insert(news);
+    }
+
+
+    public List<NewsVO> transFormData(List<News> newsList) {
+        List<NewsVO> newsVOList = new ArrayList<>();
+        List<Long> authorIds = new ArrayList<>();
+        List<Long> newsTypeIds = new ArrayList<>();
+
+        for (News news : newsList) {
+            NewsVO vo = new NewsVO();
+            BeanUtils.copyProperties(news, vo);
+
+            vo.setAuthorName(newsDao.getAuthorName(news.getId(), news.getAuthorId()));
+            vo.setNewsTypeName(newsDao.getNewsTypeName(news.getId(), news.getNewsTypeId()));
+
+            newsVOList.add(vo);
+        }
+        return newsVOList;
+    }
+
+    public NewsVO transFormData(News news) {
+        NewsVO vo = new NewsVO();
+        BeanUtils.copyProperties(news, vo);
+
+        vo.setAuthorName(newsDao.getAuthorName(news.getId(), news.getAuthorId()));
+        vo.setNewsTypeName(newsDao.getNewsTypeName(news.getId(), news.getNewsTypeId()));
+
+        return vo;
     }
 }

@@ -4,11 +4,12 @@ import com.hk.TS.pojo.News;
 import com.hk.TS.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/news")
@@ -26,14 +27,14 @@ public class NewsController {
 
     @RequestMapping("/create")
     public String showDown() {
-        return "createNews";
+        return "editNews";
     }
 
     /*新闻管理页面*/
     @RequestMapping(value = {"/manage", "/manage/{crtPage}"})
     public ModelAndView getManage(@PathVariable(required = false) Integer crtPage) {
         ModelAndView mav = new ModelAndView("newsManage");
-        mav.addObject("newsList", newsService.getNews(1));
+        mav.addObject("newsList", newsService.transFormData(newsService.getNews(1)));
         if (crtPage == null) {
             crtPage = 1;
         }
@@ -42,13 +43,24 @@ public class NewsController {
         return mav;
     }
 
-    /*分页*/
-//    @RequestMapping("/manage/{crtPage}")
-//    public ModelAndView pagenation(@PathVariable int crtPage) {
-//        ModelAndView mav = new ModelAndView("newsManage");
-//        mav.addObject("newsList", newsService.getNews(crtPage));
-//        mav.addObject("pageCount", newsService.getPageCount());
-//        mav.addObject("crtPage", crtPage);
-//        return mav;
-//    }
+    @RequestMapping("/edit")
+    public ModelAndView edit(@RequestParam Long newsId) {
+        News news = newsService.getById(newsId);
+        ModelAndView mav = new ModelAndView("editNews");
+        mav.addObject("news", newsService.transFormData(news));
+
+        return mav;
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public Boolean update(@RequestBody News news) {
+        return newsService.update(news);
+    }
+
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public Boolean delete(@PathVariable Long id) {
+        return newsService.deleteById(id);
+    }
 }
