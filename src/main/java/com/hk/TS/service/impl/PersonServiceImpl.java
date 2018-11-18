@@ -155,15 +155,17 @@ public class PersonServiceImpl implements PersonService {
     /*如果密码正确，设置session的name属性的值*/
     /*当用户的role id为1或2时设置session
     * */
-    public Boolean isPasswordRight(Map<String, Object> idAndPass, HttpSession session) {
-        Person person = this.getByMail((String) idAndPass.get("mail"));
-        Long roleid = person.getRoleId();
-        if (roleid == 1) {
-            session.setAttribute("roleid", roleid);
-        } else if (roleid == 2) {
-            session.setAttribute("roleid", roleid);
+    public Boolean isPasswordRight(Map<String, Object> mailAndPass, HttpSession session) {
+        Person person = this.getByMail((String) mailAndPass.get("mail"));
+        Long roleId = person.getRoleId();
+        if (roleId == 1) {
+            session.setAttribute("roleId", roleId);
+        } else if (roleId == 2) {
+            session.setAttribute("roleId", roleId);
+        }else{
+            session.setAttribute("roleId", roleId);
         }
-        if (person.getPassword().equals(idAndPass.get("password"))) {
+        if (person.getPassword().equals(mailAndPass.get("password"))) {
             session.setAttribute("name", person.getName());
             return true;
         }
@@ -188,7 +190,7 @@ public class PersonServiceImpl implements PersonService {
         mav.addObject("crtPage", 1);
 
         /*设置view*/
-        Long roleid = (Long) session.getAttribute("roleid");
+        Long roleid = (Long) session.getAttribute("roleId");
         if (roleid != null) {
             if (roleid == 1) {
                 mav.setViewName("superCentral");
