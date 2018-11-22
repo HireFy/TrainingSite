@@ -17,7 +17,7 @@ public class PictureServiceImpl implements PictureService {
     @Autowired
     private PictureDao pictureDao;
 
-    private static String BASEDIR = "/home/jw/ts_up_images/";
+    private static String BASEDIR = "/home/jw/Documents/uploadImages/";
 
     @Override
     public Picture getById(Long id) {

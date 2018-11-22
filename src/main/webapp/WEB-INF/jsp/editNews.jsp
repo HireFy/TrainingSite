@@ -16,7 +16,7 @@
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="${basePath}/tinymce/js/tinymce/tinymce.js"></script>
+    <script src="${basePath}/tinymce/tinymce.js"></script>
     <script>
         tinymce.init({
             selector: '#textarea',
@@ -31,7 +31,7 @@
                 '| bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ' +
                 '| link image | print preview media fullpage | forecolor backcolor emoticons | codesample ltr rtl ',
             paste_data_images: true,
-            document_base_url: 'http://localhost:8080',
+            document_base_url: '${basePath}',
             images_upload_url: '${basePath}/pic/save',
             fullpage_default_encoding: "UTF-8"
         });

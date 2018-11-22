@@ -95,16 +95,9 @@ public class NewsServiceImpl implements NewsService {
 
     public List<NewsVO> transFormData(List<News> newsList) {
         List<NewsVO> newsVOList = new ArrayList<>();
-        List<Long> authorIds = new ArrayList<>();
-        List<Long> newsTypeIds = new ArrayList<>();
 
         for (News news : newsList) {
-            NewsVO vo = new NewsVO();
-            BeanUtils.copyProperties(news, vo);
-
-            vo.setAuthorName(newsDao.getAuthorName(news.getId(), news.getAuthorId()));
-            vo.setNewsTypeName(newsDao.getNewsTypeName(news.getId(), news.getNewsTypeId()));
-
+            NewsVO vo = this.transFormData(news);
             newsVOList.add(vo);
         }
         return newsVOList;
