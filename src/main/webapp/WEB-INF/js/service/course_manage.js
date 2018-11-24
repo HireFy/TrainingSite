@@ -31,9 +31,9 @@ function y(n) {
             // $("#id").text(name);
             // document.write("课程名称:" + array[i].name + "<br>" + "课程简介:" + array[i].info + "<br>" + "课程价格：" + array[i].price + "<p>    </p>");
             // e = e + "课程名称:" + array[i].name + "<br>" + "课程简介:" + array[i].info + "<br>" + "课程价格：" + array[i].price + "<p>    </p>";
-            e = e + "<tr>"+"<td>"+array[i].name +"</td>"+"<td>"+"<a href='courseDetails.jsp?id="+array[i].id+"'>"+array[i].info +"</a>"+"</td>"+"<td>"+array[i].price +"</td>"+"</tr>";
+            e = e + "<tr>"+"<td>"+array[i].name +"</td>"+"<td>"+array[i].info +"</td>"+"<td>"+array[i].price +"</td>"+"<td>"+"<a href='courseDelete.jsp?id="+array[i].id+"'>"+"<button>删除</button>"+"</a>"+"<a href='courseUpdate.jsp?id="+array[i].id+"'>"+"<button>修改</button>"+"</a>"+"</td>"+"</tr>";
         }
-        document.getElementById("course").innerHTML = "<tr><th>课程名称</th><th>课程简介</th><th>课程价格</th></tr>"+e;
+        document.getElementById("course").innerHTML = "<tr><th>课程名称</th><th>课程简介</th><th>课程价格</th><th>操作</th></tr>"+e;
 
     }
 
@@ -128,3 +128,40 @@ function clean(n) {
      document.getElementById("pageNum").value = n
      document.getElementById("pageChoice").value = " "
 }
+
+function courseAdd() {
+
+    var name_input = $("#username")
+    var name_info = $("span[name='name_info']")
+    var age_input = $("#age")
+    var gender_input = $("#gender")
+
+    var modify_form = $("#modify_form")
+    var btn = $("[name='btn']")
+
+
+
+
+    $.ajax({
+        type:"post",
+        url:"/course/create",
+        dataType:"json",
+        contentType:"application/json",
+        data:JSON.stringify({
+            "name":name_input.val(),
+            "age":age_input.val(),
+            "gender":gender_input.val()
+        }),
+        error:function (error) {
+            console.log(error)
+        },
+        success:function (data) {
+            // window.location.href="/crouse"
+            console.log(data)
+            y(data)
+        }
+    });
+
+}
+
+
