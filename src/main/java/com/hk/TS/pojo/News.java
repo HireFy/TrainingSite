@@ -51,6 +51,19 @@ public class News {
         this.content = content;
     }
 
+    public News(Long id, String title, String content, Long newsTypeId) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.newsTypeId = newsTypeId;
+    }
+
+    public News(String title, String content, Long newsTypeId) {
+        this.title = title;
+        this.content = content;
+        this.newsTypeId = newsTypeId;
+    }
+
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }

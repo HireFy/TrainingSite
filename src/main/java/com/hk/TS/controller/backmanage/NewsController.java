@@ -21,7 +21,12 @@ public class NewsController {
     /*存放在数据库里面*/
     @RequestMapping("/save")
     @ResponseBody
-    public Boolean saveEdit(@RequestBody News news, HttpSession session) {
+    public Boolean saveEdit(@RequestParam("title") String title,
+                            @RequestParam("newsTypeId") Long newsTypeId,
+                            @RequestParam("text") String content,
+                            HttpSession session) {
+        News news = new News(title, content, newsTypeId);
+
         return newsService.save(news, session);
     }
 
@@ -54,7 +59,11 @@ public class NewsController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public Boolean update(@RequestBody News news) {
+    public Boolean update(@RequestParam("newsId") Long id,
+                          @RequestParam("title") String title,
+                          @RequestParam("newsTypeId") Long newsTypeId,
+                          @RequestParam("text") String content) {
+        News news = new News(id, title, content, newsTypeId);
         return newsService.update(news);
     }
 
@@ -63,4 +72,18 @@ public class NewsController {
     public Boolean delete(@PathVariable Long id) {
         return newsService.deleteById(id);
     }
+
+
+    /*查看tinymce表单的传送内容*/
+    @RequestMapping("/content")
+    @ResponseBody
+    public Boolean getContent(@RequestParam("text") String text,
+                              @RequestParam("title") String title,
+                              @RequestParam("newsTypeId") Long newsTypeId) {
+        System.out.println(title);
+        System.out.println(text);
+        System.out.println(newsTypeId);
+        return true;
+    }
+
 }

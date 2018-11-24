@@ -53,7 +53,7 @@ btnDelete.click(function () {
     })
 
     /*要删除的person的id*/
-    personId = temp[8]
+    personId = temp[temp.length - 1];
 
     $("#confirmDelete").click(function () {
         $("#deleteModalCenter").modal("hide")

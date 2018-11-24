@@ -89,10 +89,14 @@
     <p id="textTitle" style="border: 1px solid black">${news.title}</p>
 </div>
 
-<form action="${basePath}/news/save" method="post" id="text_form">
+<form method="post" action="${basePath}/news/content" id="text_form">
+    <input name="title" hidden="true">
+    <input name="newsTypeId" hidden="true">
+    <input name="newsId" hidden="true">
     <textarea id="textarea" name="text">${news.content}</textarea>
 </form>
 <button type="button" id="btnSave">保存</button>
+
 
 
 <!-- Modal 保存成功-->
@@ -163,9 +167,9 @@
 
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-<script src="${basePath}/js/service/createNews.js"></script>
 <script src="${basePath}/js/service/editNews.js"></script>
 </body>
 </html>

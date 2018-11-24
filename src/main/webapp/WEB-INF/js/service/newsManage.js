@@ -19,9 +19,8 @@ btnModify.click(function () {
 })
 
 
-btnComfirmDelete.click(function () {
-    var newsInfoArr = btnModify.parent().parent().prevAll()
-    console.log(btnDelete.parent())
+$("[name='btn-delete']").click(function () {
+    var newsInfoArr = $(this).parent().prevAll()
 
     var temp = new Array()
     newsInfoArr.each(function () {
@@ -31,25 +30,32 @@ btnComfirmDelete.click(function () {
 
     id = temp[temp.length - 1];
 
-    console.log(id);
+    console.log(id)
 
-    $.ajax({
-        type:"post",
-        url:"/news/delete/" + id,
-        dataType:"json",
-        error:function (error) {
-            $("#deleteModalCenter").modal("hide")
-            $("#infoModalBody").text("删除失败!请重试")
-            $("#infoModalCenter").modal("show")
-        },
-        success:function (data) {
-            $("#deleteModalCenter").modal("hide")
-            $("#infoModalBody").text("删除成功")
-            $("#infoModalCenter").modal("show")
-        }
+    btnComfirmDelete.click(function () {
+        $.ajax({
+            type:"post",
+            url:"/news/delete/" + id,
+            dataType:"json",
+            error:function (error) {
+                $("#deleteModalCenter").modal("hide")
+                $("#infoModalBody").text("删除失败!请重试")
+                $("#infoModalCenter").modal("show")
+                $('#infoModalCenter').on('hidden.bs.modal', function (e) {
+                    window.location.reload()
+                })
+            },
+            success:function (data) {
+                $("#deleteModalCenter").modal("hide")
+                $("#infoModalBody").text("删除成功")
+                $("#infoModalCenter").modal("show")
+                $('#infoModalCenter').on('hidden.bs.modal', function (e) {
+                    window.location.reload()
+                })
+            }
+        })
     })
+
 })
 
-infoBtnClose.click(function () {
-    window.location.reload()
-})
+
