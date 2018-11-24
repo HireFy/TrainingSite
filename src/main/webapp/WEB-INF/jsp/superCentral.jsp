@@ -11,7 +11,7 @@
     <title>Central</title>
 </head>
 <body>
-<a href="/user/">用户管理</a>
+<a href="/user/super/control">用户管理</a>
 <a href="/news/manage">新闻管理</a>
 </body>
 </html>

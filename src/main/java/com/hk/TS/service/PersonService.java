@@ -30,5 +30,7 @@ public interface PersonService {
 
     int getPageCount();
 
+    Integer getTotalCount();
+
     List<Person> getPersons(int pageNum);
 }

@@ -21,10 +21,67 @@ secretDio = $("#gridRadiosSecret")
 
 let currentLineBtn;
 
+/*定义一个ButtonType，用来判断是更新操作还是新增用户操作*/
+let buttonType
+
+
+
 btnModify.click(function () {
+    /*如果修改的按钮点击，buttonType值为update*/
+    buttonType = "update"
+
     currentLineBtn = $(this)
     modalValueClean()
     pushValueToModal(currentLineBtn)
+})
+
+
+$("#addUserBtn").click(function () {
+    /*如果新增用户的按钮点击，buttonType值为add*/
+    buttonType = "add"
+})
+
+btnDelete.click(function () {
+    var personArr = $(this).parent().prevAll()
+
+    console.log(personArr)
+
+    var temp = new Array()
+    personArr.each(function () {
+        ff = $(this).text()
+        temp.push(ff)
+    })
+
+    /*要删除的person的id*/
+    personId = temp[8]
+
+    $("#confirmDelete").click(function () {
+        $("#deleteModalCenter").modal("hide")
+        $.ajax({
+            type:"post",
+            url:"/person/delete/" + personId,
+            dataType:"json",
+            error:function () {
+                p_footer_box.removeClass()
+                p_footer_box.addClass("text-danger")
+                p_footer_box.text("删除失败")
+                $("#ModalCenterModify").modal("hide")
+                $("#failModalCenter").modal("show")
+            },
+            success:function () {
+                p_footer_box.removeClass()
+                p_footer_box.addClass("text-success")
+                p_footer_box.text("删除成功");
+                $("#ModalCenterModify").modal("hide")
+                $("#successModalCenter").modal("show")
+
+                // /*todo: 这里添加事件监听modal的关闭*/
+                $('#successModalCenter').on('hidden.bs.modal', function (e) {
+                    window.location.reload()
+                })
+            }
+        })
+    })
 })
 
 
@@ -69,7 +126,7 @@ email_box.blur(function () {
             email_box.addClass("form-control is-valid");
             btnSave.attr("disabled", false)
         } else {
-            email_box.removeClass();
+            emailconfirmDelete_box.removeClass();
             email_box.addClass("form-control is-invalid")
             btnSave.attr("disabled", true)
         }
@@ -101,6 +158,7 @@ age_box.blur(function () {
 )
 
 
+/*modal框的save按钮*/
 btnSave.click(function () {
     gender_val = cleanSpace($(":radio:checked").next().text());
     id_val = id_box.text().slice(4)
@@ -118,9 +176,11 @@ btnSave.click(function () {
         "info": info_box.val()
     }
 
+    console.log(data)
+
     $.ajax({
         type: "post",
-        url: "/person/update/user",
+        url: "/person/"+ buttonType +"/user",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(data),
@@ -132,15 +192,31 @@ btnSave.click(function () {
             $("#failModalCenter").modal("show")
         },
         success: function (data) {
-            p_footer_box.removeClass()
-            p_footer_box.addClass("text-success")
-            p_footer_box.text("修改成功");
-            refreshValue(id_val)
-            $("#ModalCenterModify").modal("hide")
-            $("#successModalCenter").modal("show")
+            if(buttonType === 'update'){
+                p_footer_box.removeClass()
+                p_footer_box.addClass("text-success")
+                p_footer_box.text("修改成功");
+                refreshValue(id_val)
+                $("#ModalCenterModify").modal("hide")
+                $("#successModalCenter").modal("show")
+            }
+            if (buttonType === 'add') {
+                /*todo 添加事件监听modal的消失，然后执行刷新页面的操作*/
+                p_footer_box.removeClass()
+                p_footer_box.addClass("text-success")
+                p_footer_box.text("修改成功");
+                refreshValue(id_val)
+                $("#ModalCenterModify").modal("hide")
+                $("#successModalCenter").modal("show")
+
+                $('#successModalCenter').on('hidden.bs.modal', function (e) {
+                    window.location.reload()
+                })
+            }
         }
     });
 })
+
 
 
 /*close按钮点击的时候重设p_footer_box的类属性

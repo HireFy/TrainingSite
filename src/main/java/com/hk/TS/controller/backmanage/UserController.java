@@ -52,6 +52,38 @@ public class UserController {
         return mav;
     }
 
+    /*layui分页*/
+    @RequestMapping("/user/table")
+    @ResponseBody
+    public Map<String, Object> getPageNation(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                             @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("count", personService.getTotalCount());
+        map.put("data", personService.getPersons(page, limit));
+        map.put("code", 0);
+        map.put("msg", "xxx");
+
+        return map;
+    }
+
+
+    /*超级管理员请求用户管理页面*/
+    @RequestMapping("/user/super/control")
+    public ModelAndView getPage() {
+        ModelAndView mav = new ModelAndView();
+        /*填充数据*/
+        List<Person> personList = personService.getPersons(1);
+        mav.addObject("personList", personList);
+        int pageCount = personService.getPageCount();
+        mav.addObject("pageCount", pageCount);
+        mav.addObject("crtPage", 1);
+
+        mav.setViewName("superAdminBoot");
+
+        return mav;
+    }
+
+
     /*请求信息修改页面*/
     @GetMapping("/modify")
     public String getModifyPage() {

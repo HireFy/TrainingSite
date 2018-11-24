@@ -36,7 +36,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">确认</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">确认</button>
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="modal-footer">
                 <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
-                <button type="button" class="btn btn-success" data-dismiss="modal">确认</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="successInfoBtn">确认</button>
             </div>
         </div>
     </div>
@@ -246,6 +246,8 @@
         </li>
     </ul>
 </nav>
+
+<button id="addUserBtn" data-toggle="modal" type="button" data-target="#ModalCenterModify">新增</button>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

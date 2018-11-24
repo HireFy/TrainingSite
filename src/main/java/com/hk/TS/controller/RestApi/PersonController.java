@@ -26,9 +26,11 @@ public class PersonController {
         return personService.getById(id);
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
+//        测试用
         return personService.deleteById(id);
+//        return true;
     }
 
     @GetMapping("/page/{pageNum}")
@@ -58,5 +60,10 @@ public class PersonController {
     @PostMapping("/password/verify")
     public Boolean isPassRight(@RequestBody Map<String, Object> mailAndPass, HttpSession session) {
         return personService.isPasswordRight(mailAndPass, session);
+    }
+
+    @RequestMapping("/add/user")
+    public Boolean addUser(@RequestBody Person person) {
+        return personService.insert(person);
     }
 }
