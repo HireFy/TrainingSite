@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/templatemo-style.css">
 <script src="/js/service/course_display.js"></script>
 <script src="/js/jquery.js"></script>
+
 <style>
     .center{
         margin: 0 auto;
@@ -37,7 +38,6 @@
 <button onclick="pageMinus()">上一页</button>
 <button onclick="pageAdd()">下一页</button>
 <div>
-
 
 
 </div>

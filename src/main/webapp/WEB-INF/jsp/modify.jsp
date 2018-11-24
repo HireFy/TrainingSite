@@ -47,9 +47,14 @@
                     <span name="name_info" style="color: #FF4136"></span>
                 </div>
                 <div class="form-group">
-                    <%--TODO 性别这里弄两个复选框--%>
-                    <span>性别：<input class="form-control required" type="text" placeholder="Gender" id="gender"
-                                    name="gender" autofocus="autofocus" maxlength="20"></span>
+                    <%--TODO 性别这里弄两个复选框;;;性别radio选框完成--%>
+                    <%--<span>性别：<input class="form-control required" type="text" placeholder="Gender" id="gender"--%>
+                                    <%--name="gender" autofocus="autofocus" maxlength="20"></span>--%>
+                    <span>
+                        性别：<br>
+                                &nbsp;&nbsp;&nbsp;<input name="gender" type="radio" checked="checked"  id="gender"/>男
+                                &nbsp;&nbsp;&nbsp;<input name="gender" type="radio"/>女
+                    </span>
                 </div>
                 <div class="form-group">
                     <span>年龄：<input class="form-control required" type="text" placeholder="Age" id="age" name="age"

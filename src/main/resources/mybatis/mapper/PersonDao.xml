@@ -62,7 +62,7 @@
     </update>
 
     <select id="getPersons" resultMap="personResultMap">
-        select * from Person where limit #{offset}, #{pageSize}
+        select * from Person limit #{offset}, #{pageSize}
     </select>
 
     <select id="getByMail" resultMap="personResultMap">
@@ -87,5 +87,9 @@
         then 0 else 1 end
         from Person
         where p_mail=#{mail}
+    </select>
+
+    <select id="getTotalCount" resultType="Integer">
+       select count(*) from Person;
     </select>
 </mapper>

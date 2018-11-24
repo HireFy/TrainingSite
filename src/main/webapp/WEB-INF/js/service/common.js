@@ -91,7 +91,7 @@ function isMailExist(mail, mail_box, button, reverse = false) {
 }
 
 
-/*TODO 验证码设置生命周期，一定时间后失效，当*/
+/*TODO 验证码设置生命周期，一定时间后失效*/
 
 /*发送验证码*/
 function sendVerifyNum(mail_val) {
@@ -114,7 +114,15 @@ function sendVerifyNum(mail_val) {
 }
 
 
-/*检测验证码是否正确*/
+/*检测验是否都是数字*/
+function isAllNum(str) {
+    for (var i = 0; i < str.length; i++) {
+        if (isNaN(str.charAt(i))) {
+            return false
+        }
+    }
+    return true
+}
 
 /*检测验证码是否都为数字
 * 不是数字执行failFunc()*/

@@ -26,9 +26,11 @@ public class PersonController {
         return personService.getById(id);
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public Boolean deleteById(@PathVariable Long id) {
+//        测试用
         return personService.deleteById(id);
+//        return true;
     }
 
     @GetMapping("/page/{pageNum}")
@@ -41,11 +43,13 @@ public class PersonController {
         return personService.updateWithSession(map, session);
     }
 
-    /*因为前端ajax传递Name值为007在服务端会是""007""这样的情况，所以把原来的参数改成Map*/
-//    @RequestBody Map<String, Object> name
+    @PostMapping("/update/user")
+    public Boolean updateUser(@RequestBody Map<String, Object> map, HttpSession session) {
+        return personService.updateWithId(map);
+    }
+
     @PostMapping("/name/exist")
     public Boolean isNameExist(@RequestParam String name) {
-//        return personService.isNameExist((String) map.get("name"));
         return personService.isNameExist((String) name);
     }
 
@@ -56,5 +60,10 @@ public class PersonController {
     @PostMapping("/password/verify")
     public Boolean isPassRight(@RequestBody Map<String, Object> mailAndPass, HttpSession session) {
         return personService.isPasswordRight(mailAndPass, session);
+    }
+
+    @RequestMapping("/add/user")
+    public Boolean addUser(@RequestBody Person person) {
+        return personService.insert(person);
     }
 }

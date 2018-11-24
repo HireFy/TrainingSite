@@ -1,3 +1,5 @@
+/*忘记密码邮箱验证*/
+
 email_input = $("#email")
 email_info = $("#email_info")
 num_input = $("#num")

@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -67,4 +70,28 @@ public class NewsDaoTest {
     public void h_deleteById() {
         assertEquals(true, newsDao.deleteById(id));
     }
+
+    @Test
+    public void getTotalCount(){
+        System.out.println(newsDao.getTotalCount());
+    }
+
+    @Test
+    public void getAuthorNames() {
+        List<Long> authorIds = new ArrayList<>();
+        authorIds.add((long) 3);
+        authorIds.add((long) 2);
+
+        System.out.println(newsDao.getAuthors(authorIds));
+    }
+
+//    @Test
+//    public void getAuthorName(){
+//        System.out.println(newsDao.getAuthorName((long) 2));
+//    }
+//
+//    @Test
+//    public void getNewsTypeName() {
+//        System.out.println(newsDao.getNewsTypeName((long) 5));
+//    }
 }

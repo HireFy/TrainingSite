@@ -59,4 +59,30 @@
         where news_id = #{id}
     </update>
 
+    <select id="getTotalCount" resultType="Integer">
+        select count(*) from News
+    </select>
+
+    <select id="getAuthors" resultMap="com.hk.TS.dao.PersonDao.personResultMap">
+        select * from Person, News where news_author_id = p_id and news_author_id in
+         <foreach collection="list" item="authorId" index="index" open="(" separator="," close=")">
+             #{authorId}
+         </foreach>
+    </select>
+
+    <select id="getNewsTypes" resultMap="com.hk.TS.dao.NewsTypeDao.newsTypeMap">
+        select * from NewsType, News where News.news_type_id = NewsType.news_type_id and News.news_type_id in
+        <foreach collection="list" item="authorId" index="index" open="(" separator="," close=")">
+            #{authorId}
+        </foreach>
+    </select>
+
+    <select id="getAuthorName" resultType="String">
+        select p_name from Person,News where news_author_id = p_id and news_author_id = #{authorId} and news_id = #{id}
+    </select>
+
+    <select id="getNewsTypeName" resultType="String">
+        select news_type_name from NewsType, News where News.news_type_id = NewsType.news_type_id and News.news_type_id = #{newsTypeId} and news_id = #{id}
+    </select>
+
 </mapper>

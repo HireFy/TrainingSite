@@ -140,8 +140,9 @@
 
                     <div class="col-md-4 col-sm-4">
                          <div class="feature-thumb">
-                              <span>03</span>
-                              <h3>新闻资讯</h3>
+                             <%--TODO:备注，在这里用了个button来跳转调试super_admin_news--%>
+                              <span>03</span><br>
+                              <a href="/super_admin_news"><button><h3>新闻资讯</h3></button></a>
                               <p>本培训中心2018年7月......</p>
                          </div>
                     </div>
@@ -661,6 +662,7 @@
                                    <div class="form-group">
                                         <form action="#" method="get">
                                              <input type="email" class="form-control" placeholder="输入您的邮箱地址l" name="email" id="email" required="">
+                                            <%--TODO:下面的id=form-submit在上面也有一个，应该改成什么 --%>
                                              <input type="submit" class="form-control" name="submit" id="form-submit" value="发送给我们">
                                         </form>
                                         <span><sup>*</sup> 请注意，我们不会给你的邮箱发送垃圾邮件.</span>

@@ -1,8 +1,11 @@
 package com.hk.TS.service;
 
 import com.hk.TS.pojo.News;
+import com.hk.TS.vo.NewsVO;
 import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface NewsService {
@@ -18,8 +21,18 @@ public interface NewsService {
 
     Boolean isTitleExist(String title);
 
+    Boolean save(News news, HttpSession session);
+
     /*todo 要有个分页 前期不考虑*/
     List<News> getNewsByAuthorId(Long authorId);
 
     List<News> getNews(int pageNum, int pageSize);
+
+    List<News> getNews(int pageNum);
+
+    int getPageCount();
+
+    List<NewsVO> transFormData(List<News> newsList);
+
+    NewsVO transFormData(News news);
 }

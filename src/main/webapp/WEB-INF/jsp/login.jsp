@@ -31,7 +31,6 @@
 <div class="container">
     <div class="form row">
         <%--TODO 后面index应该考虑跟上用户的昵称/user/{name}--%>
-
         <div class="form-horizontal col-md-offset-3" id="login_div">
             <h3 class="form-title">LOGIN</h3>
             <div class="col-md-9">

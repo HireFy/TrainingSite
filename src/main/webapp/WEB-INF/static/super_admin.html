@@ -13,6 +13,10 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -125,7 +129,8 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+
+<div class="container-fluid ">
     <div class="row-fluid">
         <div class="span3" id="sidebar">
             <ul class="nav nav-list bs-docs-sidenav nav-collapse">
@@ -205,10 +210,10 @@
                             <td>2018-10-31</td>
                             <td>课程真棒，老师很好</td>
                             <td>
-                                <div style="float: left">
-                                    <button id="news_modification" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mymodal" >修改</button>
+                                <div>
+                                    <div style="float: left;"><button id="modification_news" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >修改</button></div>
                                     <!-- 模态框（Modal） -->
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 80%;left: 25%">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -216,16 +221,37 @@
                                                         &times;
                                                     </button>
                                                     <h4 class="modal-title" id="myModalLabel">
-                                                        模态框（Modal）标题
+                                                        修改新闻
                                                     </h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    在这里添加一些文本
+                                                   <table style="table-layout:fixed" class="table  table-bordered table-hover table-striped">
+                                                       <thead>
+                                                       <tr>
+                                                           <th>新闻id</th>
+                                                           <th>标题</th>
+                                                           <th>内容</th>
+                                                           <th>作者</th>
+                                                           <th>发布时间</th>
+                                                           <th>评论</th>
+                                                       </tr>
+                                                       </thead>
+                                                       <tbody>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                       </tbody>
+                                                   </table>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                                                     </button>
-                                                    <button type="button" class="btn btn-primary">
+                                                    <button id="" type="button" class="btn btn-primary">
                                                         提交更改
                                                     </button>
                                                 </div>
@@ -233,53 +259,11 @@
                                         </div><!-- /.modal -->
                                     </div>
 
+                                    <div><button id="news_delete" class="btn btn-primary btn-lg" style="margin-left: 2px" data-toggle="modal" data-target="#myModal">删除</button></div>
+                                </div>
+                            </td>
+                        </tr>
 
-                                    <button id="news_delete">删除</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div style="float: left">
-                                    <button>修改</button>
-                                    <button>删除</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div style="float: left">
-                                    <button>修改</button>
-                                    <button>删除</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>004</td>
-                            <td>java课程新动向</td>
-                            <td class="table_td">xxx培训中心新开了Java课程电风扇犯得上犯得上发射点犯得上方法</td>
-                            <td>fjw</td>
-                            <td>2018-10-31</td>
-                            <td>课程真棒，老师很好</td>
-                            <td>
-                                <div style="float: left">
-                                    <button>修改</button>
-                                    <button>删除</button>
-                                </div>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -288,7 +272,6 @@
         </div>
     </div>
 </div>
-<hr>
 <footer>
     <p>我们是xxx培训中心，联系电话：10086</p>
 </footer>

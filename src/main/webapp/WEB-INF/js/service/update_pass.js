@@ -1,3 +1,5 @@
+/*忘记密码填写新密码*/
+
 pass = $("#pass")
 pass_box = $("#pass_info")
 repass = $("#repass")
