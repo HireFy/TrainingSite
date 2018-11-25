@@ -36,7 +36,6 @@ btnSave.click(function () {
 
     text_form.submit()
 
-    // submitForm()
 })
 
 

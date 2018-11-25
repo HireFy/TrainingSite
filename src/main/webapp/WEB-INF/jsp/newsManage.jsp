@@ -49,6 +49,28 @@
     </div>
 </div>
 
+<!-- Modal 预览-->
+<div class="modal fade" id="previewModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="previewModalCenterTitle">预览</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="previewIframe" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal 提示-->
 <div class="modal fade" id="infoModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
@@ -111,7 +133,6 @@
             <td>${news.id}</td>
             <td>${news.title}</td>
             <td>${news.authorName}</td>
-            <td>${fn:split(news.content,"\\n")[0]}</td>
             <td>${news.createTime}</td>
             <td>${news.newsTypeName}</td>
             <td>${news.clickCount}</td>
@@ -122,6 +143,9 @@
                 </form>
                 <button name="btn-delete" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                         data-target="#deleteModalCenter">删除
+                </button>
+                <button name="btn-preview" type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                        data-target="#previewModalCenter">预览
                 </button>
             </td>
         </tr>

@@ -89,7 +89,7 @@
     <p id="textTitle" style="border: 1px solid black">${news.title}</p>
 </div>
 
-<form method="post" action="${basePath}/news/content" id="text_form">
+<form method="post" action="${basePath}/news/save" id="text_form">
     <input name="title" hidden="true">
     <input name="newsTypeId" hidden="true">
     <input name="newsId" hidden="true">

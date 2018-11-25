@@ -9,7 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/news")
@@ -20,14 +22,18 @@ public class NewsController {
 
     /*存放在数据库里面*/
     @RequestMapping("/save")
-    @ResponseBody
-    public Boolean saveEdit(@RequestParam("title") String title,
+    public ModelAndView saveEdit(@RequestParam("title") String title,
                             @RequestParam("newsTypeId") Long newsTypeId,
                             @RequestParam("text") String content,
                             HttpSession session) {
         News news = new News(title, content, newsTypeId);
 
-        return newsService.save(news, session);
+        ModelAndView mv = new ModelAndView("newsAlert");
+        if (newsService.save(news, session)) {
+            mv.addObject("info", "操作成功");
+        }else
+            mv.addObject("info", "操作失败");
+        return mv;
     }
 
     @RequestMapping("/create")
@@ -58,13 +64,18 @@ public class NewsController {
     }
 
     @RequestMapping("/update")
-    @ResponseBody
-    public Boolean update(@RequestParam("newsId") Long id,
+    public ModelAndView update(@RequestParam("newsId") Long id,
                           @RequestParam("title") String title,
                           @RequestParam("newsTypeId") Long newsTypeId,
                           @RequestParam("text") String content) {
         News news = new News(id, title, content, newsTypeId);
-        return newsService.update(news);
+
+        ModelAndView mv = new ModelAndView("newsAlert");
+        if (newsService.update(news)) {
+            mv.addObject("info", "操作成功");
+        }else
+            mv.addObject("info", "操作失败");
+        return mv;
     }
 
     @RequestMapping("/delete/{id}")
@@ -84,6 +95,16 @@ public class NewsController {
         System.out.println(text);
         System.out.println(newsTypeId);
         return true;
+    }
+
+
+    /*获取文章内容*/
+    @RequestMapping("/content/{id}")
+    @ResponseBody
+    public Map getContentById(@PathVariable Long id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("text", newsService.getById(id).getContent());
+        return map;
     }
 
 }
