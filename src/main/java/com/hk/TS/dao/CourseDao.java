@@ -17,5 +17,4 @@ public interface CourseDao {
     Boolean isNameExist(String name);
 
     List<Course> getCourses(@Param("offset") int offset, @Param("pageSize") int pageSize);
-
 }

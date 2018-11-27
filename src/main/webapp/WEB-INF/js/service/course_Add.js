@@ -29,7 +29,7 @@ function add() {
                 // window.location.href="/crouse"
                 alert("添加成功")
                 console.log(data)
-                window.location.href="courseManage.jsp"
+                window.location.href="/course/manager/manage"
 
             }
         });

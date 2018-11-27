@@ -93,6 +93,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
 
+
     public List<NewsVO> transFormData(List<News> newsList) {
         List<NewsVO> newsVOList = new ArrayList<>();
 

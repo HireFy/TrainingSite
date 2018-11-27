@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/picture")
-public class PictureController {
+public class PictureRestController {
 
     @Autowired
     private PictureServiceImpl pictureService;

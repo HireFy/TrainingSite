@@ -20,6 +20,19 @@
     <mvc:resources mapping="fonts/**" location="WEB-INF/fonts/"/>
     <mvc:resources mapping="tinymce/**" location="WEB-INF/tinymce/"/>
 
+    <mvc:interceptors>
+        <!--超级管理员拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/*/super/**"/>
+            <bean class="com.hk.TS.interceptor.SuperInterceptor"/>
+        </mvc:interceptor>
+        <!--管理员拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/*/manager/**"/>
+            <bean class="com.hk.TS.interceptor.ManagerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
         <!--<property name="prefix" value="WEB-INF/jsp/"/>-->
         <!--<property name="suffix" value=".jsp"/>-->

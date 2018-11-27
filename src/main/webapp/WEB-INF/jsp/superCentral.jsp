@@ -13,5 +13,7 @@
 <body>
 <a href="/user/super/control">用户管理</a>
 <a href="/news/manage">新闻管理</a>
+<a href="/course/manager/manage">课程管理</a>
+
 </body>
 </html>

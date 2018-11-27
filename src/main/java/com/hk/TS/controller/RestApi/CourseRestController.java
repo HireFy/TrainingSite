@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/course")
-public class CourseController {
+public class CourseRestController {
 
     @Autowired
     private CourseServiceImpl courseService;
@@ -48,6 +48,6 @@ public class CourseController {
 
     @GetMapping("/page/{pageNum}")
     public List<Course> getCourses(@PathVariable int pageNum) {
-        return courseService.getCourses(pageNum, 2);
+        return courseService.getCourses(pageNum, 4);
     }
 }

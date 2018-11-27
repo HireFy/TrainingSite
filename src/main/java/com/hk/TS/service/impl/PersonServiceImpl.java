@@ -1,15 +1,20 @@
 package com.hk.TS.service.impl;
 
 import com.hk.TS.dao.PersonDao;
+import com.hk.TS.dao.RoleDao;
 import com.hk.TS.pojo.Person;
 import com.hk.TS.service.PersonService;
 import com.hk.TS.util.CommonUtils;
+import com.hk.TS.vo.PersonVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +24,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     private PersonDao personDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     private static int pageSize = 10;
 
@@ -158,15 +166,16 @@ public class PersonServiceImpl implements PersonService {
     public Boolean isPasswordRight(Map<String, Object> mailAndPass, HttpSession session) {
         Person person = this.getByMail((String) mailAndPass.get("mail"));
         Long roleId = person.getRoleId();
-        if (roleId == 1) {
-            session.setAttribute("roleId", roleId);
-        } else if (roleId == 2) {
-            session.setAttribute("roleId", roleId);
-        }else{
-            session.setAttribute("roleId", roleId);
-        }
+
         if (person.getPassword().equals(mailAndPass.get("password"))) {
             session.setAttribute("name", person.getName());
+            if (roleId == 1) {
+                session.setAttribute("roleId", roleId);
+            } else if (roleId == 2) {
+                session.setAttribute("roleId", roleId);
+            }else{
+                session.setAttribute("roleId", roleId);
+            }
             return true;
         }
         return false;
@@ -181,14 +190,6 @@ public class PersonServiceImpl implements PersonService {
     /*todo 管理员页面model数据的填充*/
     public ModelAndView byPassView(HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        /*填充数据*/
-        List<Person> personList = this.getPersons(1);
-        mav.addObject("personList", personList);
-        /*等待前端*/
-        int pageCount = this.getPageCount();
-        mav.addObject("pageCount", pageCount);
-        mav.addObject("crtPage", 1);
-
         /*设置view*/
         Long roleid = (Long) session.getAttribute("roleId");
         if (roleid != null) {
@@ -196,7 +197,7 @@ public class PersonServiceImpl implements PersonService {
                 mav.setViewName("superCentral");
             }
             if (roleid == 2) {
-                mav.setViewName("superAdminBoot");
+                mav.setViewName("managerCentral");
             }
         }else
             mav.setViewName("user");
@@ -219,7 +220,32 @@ public class PersonServiceImpl implements PersonService {
         return this.update(person, map);
     }
 
+    @Override
+    public Integer getTotalCount() {
+        return personDao.getTotalCount();
+    }
+
     public int getPageCount() {
         return CommonUtils.getPageCount(personDao.getTotalCount(), pageSize);
+    }
+
+
+    /*转换数据到Vo*/
+    public PersonVo transFormData(Person person) {
+        PersonVo vo = new PersonVo();
+        BeanUtils.copyProperties(person, vo);
+
+        vo.setRoleType(roleDao.getById(vo.getRoleId()).getType());
+
+        return vo;
+    }
+
+    public List<PersonVo> transFormData(List<Person> personList) {
+        List<PersonVo> personVos = new ArrayList<>();
+        for (Person person : personList) {
+            personVos.add(this.transFormData(person));
+        }
+
+        return personVos;
     }
 }

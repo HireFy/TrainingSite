@@ -26,7 +26,7 @@ function update() {
                 // window.location.href="/crouse"
                 alert("更新成功")
                 console.log(data)
-                window.location.href="courseManage.jsp"
+                window.location.href="/course/manager/manage"
 
             }
         });

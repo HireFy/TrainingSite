@@ -35,7 +35,7 @@ public class UserController {
     }
 
     /*通过email返回user视图*/
-    /*TODO 区分开role为1和role为2的登录成功页面*/
+    /*TODO 区分开role为1和role为2的登录成功页*/
     @RequestMapping("/user")
     public ModelAndView getUserPage(HttpSession session) {
         return personService.byPassView(session);

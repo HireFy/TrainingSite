@@ -31,7 +31,7 @@ function y(n) {
             // $("#id").text(name);
             // document.write("课程名称:" + array[i].name + "<br>" + "课程简介:" + array[i].info + "<br>" + "课程价格：" + array[i].price + "<p>    </p>");
             // e = e + "课程名称:" + array[i].name + "<br>" + "课程简介:" + array[i].info + "<br>" + "课程价格：" + array[i].price + "<p>    </p>";
-            e = e + "<tr>"+"<td>"+array[i].name +"</td>"+"<td>"+array[i].info +"</td>"+"<td>"+array[i].price +"</td>"+"<td>"+"<a href='courseDelete.jsp?id="+array[i].id+"'>"+"<button>删除</button>"+"</a>"+"<a href='courseUpdate.jsp?id="+array[i].id+"'>"+"<button>修改</button>"+"</a>"+"</td>"+"</tr>";
+            e = e + "<tr>"+"<td>"+array[i].name +"</td>"+"<td>"+array[i].info +"</td>"+"<td>"+array[i].price +"</td>"+"<td>"+"<a href='/course/manager/delete?id="+array[i].id+"'>"+"<button class='btn-danger'>删除</button>"+"</a>"+"<a href='/course/manager/update?id="+array[i].id+"'>"+"<button class='btn-info'>修改</button>"+"</a>"+"</td>"+"</tr>";
         }
         document.getElementById("course").innerHTML = "<tr><th>课程名称</th><th>课程简介</th><th>课程价格</th><th>操作</th></tr>"+e;
 
